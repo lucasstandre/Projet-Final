@@ -1,13 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include<iostream>
 
-class Terain
+class Terain 
 {
-	private:
-		sf::RectangleShape _background;
+private:
+	sf::RectangleShape _background;
 	public:
 	Terain();
 	~Terain();
-	sf::RectangleShape ShowTerain();
+	sf::RectangleShape& ShowTerain();
+
+
 };
 

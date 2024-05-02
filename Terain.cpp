@@ -1,35 +1,30 @@
-#include "Terain.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include "Terain.h"
 
 
 Terain::Terain()
 {
-	_background.setSize(sf::Vector2f(1489, 823));
+	
     sf::Texture texture;
-    if (!texture.loadFromFile("beach.jpg")) {
+    if (!texture.loadFromFile("beach1.png")) {
         std::cout << "Error loading texture" << std::endl;
     }
-    texture.loadFromFile("beach.jpg");
-    _background.setTexture(&texture);
-
-
+    texture.loadFromFile("beach1.png");
+        _background.setSize(sf::Vector2f(1489, 823));
+        _background.setTexture(&texture);
 }
 
 Terain::~Terain()
 {
+
+
 }
 
-sf::RectangleShape Terain::ShowTerain()
+sf::RectangleShape& Terain::ShowTerain()
 {
-    sf::RectangleShape background(sf::Vector2f(1489, 823));
-    sf::Texture texture;
-    if (!texture.loadFromFile("beach.jpg")) {
-        std::cout << "Error loading texture" << std::endl;
-    }
-    texture.loadFromFile("beach.jpg");
-    background.setTexture(&texture);
-    return background;
+
+    return _background;
+
 
 }
