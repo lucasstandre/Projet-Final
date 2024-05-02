@@ -37,9 +37,10 @@ int main() {
     willy.setPosition(585, 485);
     bool isPKeyPressed = false;
     auto startTime = chrono::steady_clock::now();
+    stick.setPosition(-100, -100);
     while (window.isOpen()) {
         // Gestion des événements
-        stick.setPosition(-100, -100);  
+
         Event event;
         while (window.pollEvent(event)) {
             
@@ -108,9 +109,19 @@ int main() {
 
 						willy.setTextureRect(rectSourceSprite);
                         stick.setTextureRect(rectSourceStick);
-                        
+                        sleep_for(chrono::milliseconds(1000));
+
+                        //while (//peche)
+                        //{
+                        //    
+                        //    if (Keyboard::Space)
+                        //    {
+                        //        break;
+                        //    }
+                        //}
+                        stick.setPosition(-100, -100);
 						break;
-                default:
+                       
 
                     break;
                 }
