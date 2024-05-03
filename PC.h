@@ -1,16 +1,24 @@
 #pragma once
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <SFML/Graphics.hpp>
 #include "Character.h"
+#include"Game.h"
+#include "PC.h"
+
 
 class PC : public Character
 {
 protected:
 
 	int _money;
-
+	int _Lvl;
 	public:
-	PC ();
-	void move();
-	int getMoney();
+		PC();
+		PC(std::string);
+	int getMoney() const;
+	void move(sf::Event);
 
 
 };

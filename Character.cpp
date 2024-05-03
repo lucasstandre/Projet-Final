@@ -1,27 +1,46 @@
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <SFML/Graphics.hpp>
 #include "Character.h"
 #include"Game.h"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-Character::Character(std::string CharacterPng)
+
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
+using namespace sf;
+using namespace std;
+Character::Character()
 {
-_character.setSize(sf::Vector2f(54.4, 102)); // Taille du personnage
-
-_characterTexture.loadFromFile(CharacterPng+".png"); // Chargement de la texture du personnage
-if (_characterTexture.loadFromFile(CharacterPng+".png"))
-{
-
-}
-_character.setTexture(&_characterTexture);
-
-_rectSourceSprite = sf::IntRect(0, 0, 15, 32);
-
-_character.setTextureRect(_rectSourceSprite);
-
 }
 
 Character::~Character()
 {
-	_characterTexture.~Texture();
-	_character.~RectangleShape();
+	//_characterTexture.~Texture();
+	//_character.~RectangleShape();
 	//_rectSourceSprite.~IntRect();
 }
+
+void Character::setCharacter(std::string CharacterPng)
+{
+	_character.setSize(sf::Vector2f(54.4, 102)); // Taille du personnage
+
+	_characterTexture.loadFromFile(CharacterPng + ".png"); // Chargement de la texture du personnage
+	if (_characterTexture.loadFromFile(CharacterPng + ".png"))
+	{
+
+	}
+	_character.setTexture(&_characterTexture);
+
+	_rectSourceSprite = sf::IntRect(0, 0, 15, 32);
+
+	_character.setTextureRect(_rectSourceSprite);
+
+}
+
+
+
+sf::RectangleShape& Character::ShowCharacter()
+{
+	return _character;
+}
+

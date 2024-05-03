@@ -4,13 +4,14 @@
 
 class Terain 
 {
-private:
+protected:
 	sf::RectangleShape _background;
+	sf::IntRect _rectSourceSprite; // Rectangle de la texture à afficher
+	sf::Texture _backgroundTexture; // Texture du personnage
 	public:
 	Terain();
 	~Terain();
 	sf::RectangleShape& ShowTerain();
-
 
 };
 

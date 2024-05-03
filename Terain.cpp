@@ -5,14 +5,28 @@
 
 Terain::Terain()
 {
-	
-    sf::Texture texture;
-    if (!texture.loadFromFile("beach1.png")) {
-        std::cout << "Error loading texture" << std::endl;
+    _background.setSize(sf::Vector2f(1489, 823)); // Taille du personnage
+
+    _backgroundTexture.loadFromFile("beach.jpg"); // Chargement de la texture du personnage
+    if (_backgroundTexture.loadFromFile("beach.jpg"))
+    {
+
     }
-    texture.loadFromFile("beach1.png");
-        _background.setSize(sf::Vector2f(1489, 823));
-        _background.setTexture(&texture);
+    _background.setTexture(&_backgroundTexture);
+
+    //_rectSourceSprite = sf::IntRect(0, 0, 15, 32);
+
+    //_background.setTextureRect(_rectSourceSprite);
+
+  
+    
+    //sf::Texture texture;
+    //if (!texture.loadFromFile("beach.jpg")) {
+    //    std::cout << "Error loading texture" << std::endl;
+    //}
+    //texture.loadFromFile("beach.jpg");
+    //    _background.setSize(sf::Vector2f(1489, 823));
+    //    _background.setTexture(&texture);
 }
 
 Terain::~Terain()
@@ -25,6 +39,5 @@ sf::RectangleShape& Terain::ShowTerain()
 {
 
     return _background;
-
 
 }

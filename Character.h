@@ -9,14 +9,13 @@ protected:
 	sf::IntRect _rectSourceSprite; // Rectangle de la texture à afficher
 	sf::RectangleShape _character; // Rectangle du personnage
 	sf::Texture _characterTexture; // Texture du personnage
-	sf::Vector2f _position; // Position du personnage
 
 	public:
-	Character(std::string);
+	Character();
 	~Character();
-	float getPositionX();
-	float getPositionY();
-	void setPosition(float x, float y);
+	void setCharacter(std::string);
+	sf::RectangleShape& ShowCharacter();
+
 
 };
 
