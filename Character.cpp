@@ -37,6 +37,17 @@ void Character::setCharacter(std::string CharacterPng)
 
 }
 
+float Character::getPositionX()
+{
+    return _character.getPosition().x;
+}
+float Character::getPositionY()
+{
+	return _character.getPosition().y;
+}
+
+
+
 
 
 sf::RectangleShape& Character::ShowCharacter()

@@ -28,6 +28,11 @@ int PC::getMoney() const
     return _money;
 }
 
+int PC::getLvl() const
+{
+	return _Lvl;
+}
+
 void PC::move(sf::Event event)
 {
 	switch (event.key.code)

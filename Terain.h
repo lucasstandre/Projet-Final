@@ -12,6 +12,5 @@ protected:
 	Terain();
 	~Terain();
 	sf::RectangleShape& ShowTerain();
-
 };
 
