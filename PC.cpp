@@ -90,6 +90,7 @@ void PC::move(sf::Event event)
 		_character.setTextureRect(_rectSourceSprite);
 		break;
 	case Keyboard::Space:
+		
 		_rectSourceSprite.top = 129;
 		//_rectSourceStick.top = 159;
 		//stick.setPosition(_character.getPosition().x, _character.getPosition().y + 70); // a sacre toute les affaire stick dans un autre affaire
@@ -107,6 +108,42 @@ void PC::move(sf::Event event)
 		//    }
 		//}
 		break;
+
 	}
+}
+
+void PC::limit()
+{
+	if (_character.getPosition().x > 1205)
+	{
+		_character.setPosition(_character.getPosition().x - 20, _character.getPosition().y);
+	}
+	else if (_character.getPosition().x < 225) 
+	{
+		_character.setPosition(_character.getPosition().x + 20, _character.getPosition().y);
+	}
+	else if (_character.getPosition().y > 485)
+	{
+		_character.setPosition(_character.getPosition().x, _character.getPosition().y - 20);
+	}
+	else if (_character.getPosition().y < -75)
+	{
+		_character.setPosition(_character.getPosition().x, _character.getPosition().y + 20);
+	}
+	else if (_character.getPosition().y<=385 && _character.getPosition().x>=385)
+	{
+		_character.setPosition(_character.getPosition().x, _character.getPosition().y+20);
+	}
+	else if (_character.getPosition().y < 385 && _character.getPosition().x > 385)
+	{
+		_character.setPosition(_character.getPosition().x + 20, _character.getPosition().y);
+	}
+	
+
+	
+	
+
+	
+	
 }
 

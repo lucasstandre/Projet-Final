@@ -237,7 +237,15 @@ int main() {
 							}
 							else if (event.type == Event::KeyPressed) {
 								willy.move(event);
-								
+								cout << "Willy position: " << willy.getPositionX() << ", " << willy.getPositionY() << endl;
+								//bas gauche 225,485
+								//haut gauche 225, -75
+								//haut droit x=385
+								// max quai y=385
+								//max quai x=1205// fait
+								//54,4,102
+								willy.limit();
+
 							}
 						}
 
