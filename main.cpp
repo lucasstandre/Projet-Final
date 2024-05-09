@@ -223,6 +223,7 @@ int main() {
 				/*}*/
 					Terain terain;
 					PC willy("willy");
+					Game game;
 
 
 					RenderWindow window(VideoMode(1489, 823), "La valley des poisson");
@@ -235,6 +236,7 @@ int main() {
 								window.close();
 							}
 							else if (event.type == Event::KeyPressed) {
+								game.showMenu();
 								willy.move(event);
 							}
 						}
