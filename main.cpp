@@ -5,6 +5,7 @@
 #include "Terain.h"
 #include "Character.h"
 #include "PC.h"
+#include "ShopKeeper.h"
 using namespace std::this_thread;
 
 using namespace sf;
@@ -223,8 +224,7 @@ int main() {
 				/*}*/
 					Terain terain;
 					PC willy("willy");
-					Game game;
-
+					ShopKeeper pierre("pierre");
 
 					RenderWindow window(VideoMode(1489, 823), "La valley des poisson");
 					window.setFramerateLimit(60);
@@ -236,15 +236,25 @@ int main() {
 								window.close();
 							}
 							else if (event.type == Event::KeyPressed) {
-								game.showMenu();
 								willy.move(event);
+								cout << "Willy position: " << willy.getPositionX() << ", " << willy.getPositionY() << endl;
+								//bas gauche 225,485
+								//haut gauche 225, -75
+								//haut droit x=385
+								// max quai y=385
+								//max quai x=1205// fait
+								//54,4,102
+								willy.limit();
+
 							}
 						}
 
 						window.clear();
 
 						window.draw(terain.ShowTerain());  // Draw using the reference
+						window.draw(pierre.ShowCharacter());
 						window.draw(willy.ShowCharacter());
+					
 						window.display();
 					}
 }

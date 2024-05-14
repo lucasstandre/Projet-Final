@@ -10,12 +10,11 @@ protected:
 	sf::RectangleShape _character; // Rectangle du personnage
 	sf::Texture _characterTexture; // Texture du personnage
 
-	public:
+public:
 	Character();
 	~Character();
 	void setCharacter(std::string);
 	sf::RectangleShape& ShowCharacter();
-
-
+	float getPositionX();
+	float getPositionY();
 };
-

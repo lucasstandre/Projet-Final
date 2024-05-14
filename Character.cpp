@@ -27,6 +27,7 @@ void Character::setCharacter(std::string CharacterPng)
 	_characterTexture.loadFromFile(CharacterPng + ".png"); // Chargement de la texture du personnage
 	if (_characterTexture.loadFromFile(CharacterPng + ".png"))
 	{
+		std::cout << "Error loading texture" << std::endl;
 
 	}
 	_character.setTexture(&_characterTexture);
@@ -36,6 +37,17 @@ void Character::setCharacter(std::string CharacterPng)
 	_character.setTextureRect(_rectSourceSprite);
 
 }
+
+float Character::getPositionX()
+{
+    return _character.getPosition().x;
+}
+float Character::getPositionY()
+{
+	return _character.getPosition().y;
+}
+
+
 
 
 
