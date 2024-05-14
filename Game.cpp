@@ -78,6 +78,7 @@ void Game::showMenu()
 				cin >> saveChoice;
 
 				switch (saveChoice)
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			
 				{
 				case 1:
 					saveFile.open("WillySave.txt", ios::out);//lecture seulement
