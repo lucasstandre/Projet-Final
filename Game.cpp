@@ -53,6 +53,10 @@ void Game::showMenu(sf::Event event)
 		int moneyLinus;
 		int moneyPierre;
 
+		PC Willy("Willy");
+		PC Linus("Linux");
+		PC Pierre("Pierre");
+
 		saveFile.open("WillySave.txt", ios::out);
 		saveFile >> moneyWilly;
 		saveFile.close();
@@ -64,6 +68,11 @@ void Game::showMenu(sf::Event event)
 		saveFile.open("PierreSave.txt", ios::out);
 		saveFile >> moneyPierre;
 		saveFile.close();
+
+		Willy.setMoney(moneyWilly);
+		Linus.setMoney(moneyLinus);
+		Pierre.setMoney(moneyLinus);
+
 		
 
 		/*cout << "MENU" << endl << endl << endl << endl;
@@ -95,16 +104,17 @@ void Game::showMenu(sf::Event event)
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			
 				{
 				case 1:
+					
 						
-					//load Willy's save
+					
 
 					//PLAY GAME
 					break;
 				case 2:
-					saveFile.open("WillySave.txt", ios::out);//écriture seulement
-					saveFile << 0; //reset willy's money
-					/*willy.setMoney(0);*/ //reset willy's money
-					//erase willy's save and start game with linus at 0g
+					
+					moneyWilly = 0;//reset willy's money
+					Willy.setMoney(0); //reset willy's money
+					//erase willy's save and start game with willy at 0g
 
 					//PLAY GAME
 					break;
@@ -121,18 +131,16 @@ void Game::showMenu(sf::Event event)
 				switch (event.key.code)
 				{
 				case Keyboard::Num1:
-					saveFile.open("linusSave.txt", ios::out);//lecture seulement
-				/*	saveFile >> linus.setMoney();*/
-					saveFile.close();
-					//load linus's save
+					
 
 					//PLAY GAME
+
 					break;
 
 				case Keyboard::Num2:
-					saveFile.open("linusSave.txt", ios::out);//écriture seulement
-					saveFile << 0; //reset linus's money
-					//linus.setMoney(0); //reset linus's money
+					
+					moneyLinus = 0; //reset linus's money
+					Linus.setMoney(0); //reset linus's money
 					//erase linus's save and start game with linus at 0g
 
 					//PLAY GAME
@@ -152,16 +160,14 @@ void Game::showMenu(sf::Event event)
 				switch (event.key.code)
 				{
 				case  Keyboard::Num1:
-					saveFile.open("PierreSave.txt", ios::out);//lecture seulement
-			/*		saveFile >> Pierre.setMoney();*/
-					saveFile.close();
-					//load pierre's save
+					
 					//PLAY GAME
+
 					break;
 				case Keyboard::Num3:
-					saveFile.open("PierreSave.txt", ios::out);//écriture seulement
-					saveFile << 0; //reset Pierre's money
-					//Pierre.setMoney(0); //reset Pierre's money
+					
+					moneyPierre = 0; //reset Pierre's money
+					Pierre.setMoney(0); //reset Pierre's money
 					//erase Pierre's save and start game with linus at 0g
 
 					//PLAY GAME
@@ -172,7 +178,6 @@ void Game::showMenu(sf::Event event)
 				}
 				break;
 			default:
-				cout << "Invalid choice" << endl;
 				break;
 			}
 
@@ -185,20 +190,19 @@ void Game::showMenu(sf::Event event)
 			//display the controls of the game with an image of the keyboard (can't do it until i have all the contrôls)
 
 		case Keyboard::Num3:
-			cout << "Statistics" << endl << endl;
-			cout << "Willy has " << "g" << endl; //get the gold of willy
-			cout << "Linus has " << "g" << endl; //get the gold of linus
-			cout << "Pierre has " << "g" << endl; //get the gold of pierre
+			std::cout << "Statistics" << endl << endl;
+			std::cout << "Willy has " << moneyWilly << "g" << endl; //get the gold of willy
+			std::cout << "Linus has " << moneyLinus <<"g" << endl; //get the gold of linus
+			std::cout << "Pierre has " << moneyPierre << "g" << endl; //get the gold of pierre
 			break;
 
 		case Keyboard::Num4:
 			texturemenu.loadFromFile("fishGuide.jpeg");
 			menu.setTexture(&texturemenu);
-			cout << "here is the fish guide" << endl;
 			//display the fish guide
 
 		default:
-			cout << "Invalid choice" << endl;
+			
 			break;
 		}
 
