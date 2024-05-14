@@ -141,7 +141,7 @@ void MiniGame::play()
 		keyPressed = false;
 	}
 
-	system("pause");
+
 }
 
 MiniGame::~MiniGame()

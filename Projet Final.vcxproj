@@ -138,6 +138,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Genvieve.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="miniGame.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PC.cpp" />
     <ClCompile Include="ShopKeeper.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Fish_rare.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Genvieve.h" />
+    <ClInclude Include="miniGame.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="ShopKeeper.h" />

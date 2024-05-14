@@ -12,7 +12,5 @@ protected:
 	Terain();
 	~Terain();
 	sf::RectangleShape& ShowTerain();
-
->>>>>>>>> Temporary merge branch 2
 };
 
