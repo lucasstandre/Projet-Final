@@ -42,7 +42,6 @@ void Game::showMenu(sf::Event event)
 	//Menu du jeu de pêche stardew valley
 		fstream saveFile;
 
-
 		Window window(VideoMode(1489, 823), "Menu");
 		RectangleShape menu(sf::Vector2f(1489, 823));
 		Texture texturemenu;

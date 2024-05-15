@@ -102,4 +102,12 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="C.Salmon.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="fishingBarSprite.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

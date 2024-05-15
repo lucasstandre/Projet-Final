@@ -3,37 +3,89 @@
 using namespace std;
 using namespace sf;
 
+void MiniGame::setPlayerBar(int playerLevel)
+{
+	assert(playerLevel >= 0);
+	_playerLevel = playerLevel;
+	_playerBar = 96 + (8 * _playerLevel); // permet de changer la barre du joueur en fonction de son niveau
+
+}
+
 void MiniGame::initatialiseShapes()
 {
-	_barreMiniGame.setSize(sf::Vector2f(40, 568));
-	_greenBar.setSize(sf::Vector2f(40, playerBar));
-	_fish.setSize(sf::Vector2f(10, 10));
-	_scoreBar.setSize(sf::Vector2f(20, 568));
-	_completedScoreBar.setSize(sf::Vector2f(20, 568 / 2));
+	_barreMiniGame.setSize(sf::Vector2f(25, 370));
+
+	_allMiniGame.setSize(sf::Vector2f(111, 425));
+
+	_greenBar.setSize(sf::Vector2f(24, _playerBar));
+
+	_fish.setSize(sf::Vector2f(15, 15));
+
+	_scoreBar.setSize(sf::Vector2f(10, 400));
+
+	_completedScoreBar.setSize(sf::Vector2f(10, 400 / 2));
+
+	_miniGameTexture.loadFromFile("fishingBarSprite.png");
+
+	if (!_miniGameTexture.loadFromFile("fishingBarSprite.png"))
+	{
+		cout << "erreur dans la texture";
+	}
+	_allMiniGame.setTexture(&_miniGameTexture);
+
+	_fishTexture.loadFromFile("C.Salmon.png");
+
+	if (!_fishTexture.loadFromFile("C.Salmon.png"))
+	{
+		cout << "erreur dans la texture";
+	}
+	_fish.setTexture(&_fishTexture);
+
 }
 
-void MiniGame::setPosition()
+void MiniGame::initialisePosition(int playerPosX, int playerPosY)//multiplie la pos x par la pos du joueur pour le faire apparaitre la ou on veut
+
+{
+	_allMiniGame.setPosition(sf::Vector2f(playerPosX + 20, playerPosY + 50));
+
+	_greenBar.setPosition(sf::Vector2f(73 + (playerPosX + 20), (370 / 2) + 20 + (playerPosY + 50)));
+
+	_barreMiniGame.setPosition(sf::Vector2f(73 + (playerPosX + 20), 20 + (playerPosY + 50)));
+
+	_scoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 10 + (playerPosY + 50)));
+
+	_fish.setPosition(sf::Vector2f(78 + (playerPosX + 20), (rand() % 370 + 20) + (playerPosY + 50)));// chiffre a changer
+
+	_completedScoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 400 / 2 + 10 + (playerPosY + 50)));
+}
+
+void MiniGame::initialiseColor()
 {
 	_greenBar.setFillColor(sf::Color(100, 250, 50)); //couleur vert
-	_greenBar.setPosition(sf::Vector2f(0, 568 / 2));
-
-	_scoreBar.setPosition(sf::Vector2f(60, 0));
-
-	_fish.setFillColor(sf::Color(100, 100, 100));
-	_fish.setPosition(sf::Vector2f(15, rand() % 568));// chiffre a changer
 
 	_completedScoreBar.setFillColor(sf::Color(100, 250, 50)); //couleur vert
-	_completedScoreBar.setPosition(sf::Vector2f(60, 568 / 2));
 
+	_scoreBar.setFillColor(sf::Color(139, 69, 19)); //couleur vert
+
+	_barreMiniGame.setFillColor(sf::Color::Transparent);
+
+	_fish.setFillColor(sf::Color(100, 100, 100));
 }
 
-void MiniGame::play()
+bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow window)
 {
-	RenderWindow window(VideoMode(1489, 823), "La valley des poissons"); // a enlever
 
-	window.setFramerateLimit(60); // a enlever
+	setPlayerBar(playerLevel);
 
-	while (window.isOpen()) {
+	initatialiseShapes();
+
+	initialisePosition(playerPosX, playerPosY);
+
+	initialiseColor();
+
+	_fishPos = rand() % 370 + 20 + (playerPosY + 50);
+
+	while (lostMiniGame != true && winMiniGame != true) {
 		Event event;
 
 		while (window.pollEvent(event)) {
@@ -53,63 +105,61 @@ void MiniGame::play()
 
 					break;
 
-				case Keyboard::Space:
+				case Keyboard::C:
+					keyPressed = true; // cette ligne empeche que la barre aille par en bas lorsque le joueur appuie sur spacebar
 
-					if (_greenBar.getPosition().y > 0)
+					if (_greenBar.getPosition().y > 25 + (playerPosY + 50))
 					{
-
 						_greenBar.move(0, -10);
-
-						keyPressed = true; // cette ligne empeche que la barre aille par en bas lorsque le joueur appuie sur spacebar
-
 					}
+
 
 				}
 			}
 		}
 
-		if (!keyPressed && _greenBar.getPosition().y + playerBar + 1 < 568) //fait en sorte de descendre la greenbar par defaut
+		if (!keyPressed && _greenBar.getPosition().y + _playerBar + 1 <= 395 + (playerPosY + 50)) //fait en sorte de descendre la greenbar par defaut
 			_greenBar.move(0, 3);
 
 
 
-		if (fishPos == _fish.getPosition().y) { // regenere une nouvelle pos
+		if (_fishPos == _fish.getPosition().y) { // regenere une nouvelle pos
 
-			waitedTime++;
+			_waitedTime++;
 
-			if (waitedTime == waitTime) { //cette ligne permet au fish de rester en place un nombre aléatoire de tours
+			if (_waitedTime == _waitTime) { //cette ligne permet au fish de rester en place un nombre aléatoire de tours
 
-				fishPos = rand() % 568;
+				_fishPos = (rand() % 370 + 20 + (playerPosY + 50));
 
-				fishSpeed = rand() % 4 + 1;
+				_fishSpeed = rand() % 4 + 1;
 
-				waitTime = rand() % 40 + 5;
+				_waitTime = rand() % 40 + 5;
 
-				waitedTime = 0;
+				_waitedTime = 0;
 
 			}
 		}
-		else if (_fish.getPosition().y < fishPos) {
+		else if (_fish.getPosition().y < _fishPos) {
 
-			_fish.move(0, fishSpeed);
+			_fish.move(0, _fishSpeed);
 
-			if (_fish.getPosition().y > fishPos)
+			if (_fish.getPosition().y > _fishPos)
 
-				fishPos = _fish.getPosition().y; // si le fish depasse le fishpos, cette ligne permet de s'assurer que fishpos va etre egal au pos du fish
-
-		}
-		else if (_fish.getPosition().y > fishPos) {
-
-			_fish.move(0, -fishSpeed);
-
-			if (_fish.getPosition().y < fishPos)
-
-				fishPos = _fish.getPosition().y; // si le fish depasse le fishpos, cette ligne permet de s'assurer que fishpos va etre egal au pos du fish
+				_fishPos = _fish.getPosition().y; // si le fish depasse le fishpos, cette ligne permet de s'assurer que fishpos va etre egal au pos du fish
 
 		}
-		if (_fish.getPosition().y < _greenBar.getPosition().y + playerBar && _fish.getPosition().y > _greenBar.getPosition().y) { //fait monter la barre verte jpense
+		else if (_fish.getPosition().y > _fishPos) {
 
-			_completedScoreBar.setSize(sf::Vector2f(20, _completedScoreBar.getSize().y + 1));
+			_fish.move(0, -_fishSpeed);
+
+			if (_fish.getPosition().y < _fishPos)
+
+				_fishPos = _fish.getPosition().y; // si le fish depasse le fishpos, cette ligne permet de s'assurer que fishpos va etre egal au pos du fish
+
+		}
+		if (_fish.getPosition().y < _greenBar.getPosition().y + _playerBar && _fish.getPosition().y > _greenBar.getPosition().y) { //fait monter la barre verte jpense
+
+			_completedScoreBar.setSize(sf::Vector2f(10, _completedScoreBar.getSize().y + 1));
 
 			_completedScoreBar.move(0, -1);
 
@@ -117,14 +167,17 @@ void MiniGame::play()
 		else {
 			if (_completedScoreBar.getSize().y != 0) {
 
-				_completedScoreBar.setSize(sf::Vector2f(20, _completedScoreBar.getSize().y - 1)); //fait descendre la barre verte jpense
+				_completedScoreBar.setSize(sf::Vector2f(10, _completedScoreBar.getSize().y - 1)); //fait descendre la barre verte jpense
 
 				_completedScoreBar.move(0, 1);
+
 			}
 
 		}
 
 		window.clear();
+
+		window.draw(_allMiniGame);
 
 		window.draw(_barreMiniGame);
 
@@ -139,20 +192,36 @@ void MiniGame::play()
 		window.display();
 
 		keyPressed = false;
+
+		if (_completedScoreBar.getSize().y == _scoreBar.getSize().y) { //return true si le mini game est gagné
+
+			winMiniGame = true;
+
+			return true;
+
+			window.clear();
+		}
+		if (_completedScoreBar.getSize().y + 370 == _scoreBar.getSize().y) { //return false si le minigame est perdu
+
+			winMiniGame = true;
+
+			return false;
+
+			window.clear();
+		}
 	}
 
-
+	system("pause");
 }
 
 MiniGame::~MiniGame()
 {
-	playerLevel = 0; //lvl du personnage
-	playerBar = 0; // permet de changer la barre du joueur en fonction de son niveau
-	randomFirstFishPos = 0; //premiere position en y du poisson
-	waitedTime = 0; //notre compteur de boucles
-	waitTime = 0; //une fois sur la fishpos, nombre de boucle a faire avant de rebouger
-	fishPos = 0; //definit aléatoirement une pos en y pour le fish a aller
-	fishSpeed = 0; //vitesse aléatoire auquel le poisson bouge
+	_playerLevel = 0; //lvl du personnage
+	_playerBar = 0; // permet de changer la barre du joueur en fonction de son niveau
+	_waitedTime = 0; //notre compteur de boucles
+	_waitTime = 0; //une fois sur la fishpos, nombre de boucle a faire avant de rebouger
+	_fishPos = 0; //definit aléatoirement une pos en y pour le fish a aller
+	_fishSpeed = 0; //vitesse aléatoire auquel le poisson bouge
 
 	bool keyPressed = false, //permet de savoir si on a appuyé sur spacebar dans le minigame
 		lostMiniGame = false,

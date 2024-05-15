@@ -43,7 +43,7 @@ void PC::setLvl(int lvl)
 {
 		_Lvl = lvl;
 }
-Keyboard
+
 void PC::move(sf::Event event)
 {
 	switch (event.key.code)
@@ -51,7 +51,7 @@ void PC::move(sf::Event event)
 	case Keyboard::Escape:
 		/*game.window().close();*/
 		break;
-	case ::Up:
+	case Keyboard::Up:
 		_character.move(0, -20);
 		_rectSourceSprite.top = 65;
 		_rectSourceSprite.left += 16;
@@ -110,9 +110,7 @@ void PC::move(sf::Event event)
 		//stick.setTextureRect(rectSourceStick);
 		/*sleep_for(chrono::milliseconds(1000));*/
 		MiniGame miniGame;
-		miniGame.initatialiseShapes();
-		miniGame.setPosition();
-		miniGame.play();
+		//miniGame.play(getLvl(), getPositionX(), getPositionY());
 		//while (//peche)
 		//{
 		//    

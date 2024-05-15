@@ -162,6 +162,10 @@
     <ClInclude Include="ShopKeeper.h" />
     <ClInclude Include="Terain.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="C.Salmon.png" />
+    <Image Include="fishingBarSprite.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

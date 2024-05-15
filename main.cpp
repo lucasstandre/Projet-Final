@@ -14,9 +14,8 @@ using namespace sf;
 using namespace std;
 
 int main() {
-
          Game game;
-         game.showMenu();
+        game.showMenu();
         //chrono::steady_clock::time_point startTime;
         //chrono::steady_clock::time_point endTime;
         //chrono::duration<double> elapsedTime;
