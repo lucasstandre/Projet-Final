@@ -46,17 +46,17 @@ void MiniGame::initatialiseShapes()
 void MiniGame::initialisePosition(int playerPosX, int playerPosY)//multiplie la pos x par la pos du joueur pour le faire apparaitre la ou on veut
 
 {
-	_allMiniGame.setPosition(sf::Vector2f(playerPosX + 20, playerPosY + 50));
+	_allMiniGame.setPosition(sf::Vector2f(playerPosX + 20, playerPosY-75));
 
-	_greenBar.setPosition(sf::Vector2f(73 + (playerPosX + 20), (370 / 2) + 20 + (playerPosY + 50)));
+	_greenBar.setPosition(sf::Vector2f(73 + (playerPosX + 20), (370 / 2) + 20 + (playerPosY-75)));
 
-	_barreMiniGame.setPosition(sf::Vector2f(73 + (playerPosX + 20), 20 + (playerPosY + 50)));
+	_barreMiniGame.setPosition(sf::Vector2f(73 + (playerPosX + 20), 20 + (playerPosY-75)));
 
-	_scoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 10 + (playerPosY + 50)));
+	_scoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 10 + (playerPosY-75)));
 
-	_fish.setPosition(sf::Vector2f(78 + (playerPosX + 20), (rand() % 370 + 20) + (playerPosY + 50)));// chiffre a changer
+	_fish.setPosition(sf::Vector2f(78 + (playerPosX + 20), (rand() % 370 + 20) + (playerPosY -75)));// chiffre a changer
 
-	_completedScoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 400 / 2 + 10 + (playerPosY + 50)));
+	_completedScoreBar.setPosition(sf::Vector2f(112 + (playerPosX + 20), 400 / 2 + 10 + (playerPosY-75)));
 }
 
 void MiniGame::initialiseColor()
@@ -72,7 +72,7 @@ void MiniGame::initialiseColor()
 	_fish.setFillColor(sf::Color(100, 100, 100));
 }
 
-bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow window)
+bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow& window, Terain& terrain, PC player, ShopKeeper shopKeeper)
 {
 
 	setPlayerBar(playerLevel);
@@ -83,7 +83,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 	initialiseColor();
 
-	_fishPos = rand() % 370 + 20 + (playerPosY + 50);
+	_fishPos = rand() % 370 + 20 + (playerPosY-75);
 
 	while (lostMiniGame != true && winMiniGame != true) {
 		Event event;
@@ -108,7 +108,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 				case Keyboard::C:
 					keyPressed = true; // cette ligne empeche que la barre aille par en bas lorsque le joueur appuie sur spacebar
 
-					if (_greenBar.getPosition().y > 25 + (playerPosY + 50))
+					if (_greenBar.getPosition().y > 25 + (playerPosY-75))
 					{
 						_greenBar.move(0, -10);
 					}
@@ -118,7 +118,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 			}
 		}
 
-		if (!keyPressed && _greenBar.getPosition().y + _playerBar + 1 <= 395 + (playerPosY + 50)) //fait en sorte de descendre la greenbar par defaut
+		if (!keyPressed && _greenBar.getPosition().y + _playerBar + 1 <= 395 + (playerPosY)-75) //fait en sorte de descendre la greenbar par defaut
 			_greenBar.move(0, 3);
 
 
@@ -129,7 +129,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 			if (_waitedTime == _waitTime) { //cette ligne permet au fish de rester en place un nombre aléatoire de tours
 
-				_fishPos = (rand() % 370 + 20 + (playerPosY + 50));
+				_fishPos = (rand() % 370 + 20 + (playerPosY-75));
 
 				_fishSpeed = rand() % 4 + 1;
 
@@ -177,6 +177,12 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 		window.clear();
 
+		window.draw(terrain.ShowTerain());
+
+		window.draw(shopKeeper.ShowCharacter());
+
+		window.draw(player.ShowCharacter());
+
 		window.draw(_allMiniGame);
 
 		window.draw(_barreMiniGame);
@@ -190,6 +196,9 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 		window.draw(_completedScoreBar);
 
 		window.display();
+
+
+
 
 		keyPressed = false;
 
@@ -210,8 +219,6 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 			window.clear();
 		}
 	}
-
-	system("pause");
 }
 
 MiniGame::~MiniGame()

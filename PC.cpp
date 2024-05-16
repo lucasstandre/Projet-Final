@@ -44,85 +44,84 @@ void PC::setLvl(int lvl)
 		_Lvl = lvl;
 }
 
-void PC::move(sf::Event event)
+void PC::moveUp()
 {
-	switch (event.key.code)
-	{
-	case Keyboard::Escape:
-		/*game.window().close();*/
-		break;
-	case Keyboard::Up:
-		_character.move(0, -20);
-		_rectSourceSprite.top = 65;
-		_rectSourceSprite.left += 16;
-		if (_rectSourceSprite.left >= 45) {
-			_rectSourceSprite.left = 0;
-		}
-		_character.setTextureRect(_rectSourceSprite);
-		break;
-	case Keyboard::Down:
-		_character.move(0, 20);
-		_rectSourceSprite.top = 0;
-		_rectSourceSprite.left += 16;
-		if (_rectSourceSprite.left >= 45) {
-			_rectSourceSprite.left = 0;
-		}
-		_character.setTextureRect(_rectSourceSprite);
-		break;
-
-	case Keyboard::Left:
-		_character.move(-20, 0);
-		_rectSourceSprite.top = 97;
-		_rectSourceSprite.left += 16;
-		if (_rectSourceSprite.left >= 45) {
-			_rectSourceSprite.left = 0;
-		}
-		_character.setTextureRect(_rectSourceSprite);
-		break;
-
-	case Keyboard::Right:
-		_character.move(20, 0);
-		_rectSourceSprite.top = 33;
-		_rectSourceSprite.left += 16;
-		if (_rectSourceSprite.left >= 45) {
-			_rectSourceSprite.left = 0;
-		}
-		_character.setTextureRect(_rectSourceSprite);
-		break;
-	case Keyboard::P:
-
-		_rectSourceSprite.top = 225;
-
-		_rectSourceSprite.left += 16;
-		if (_rectSourceSprite.left >= 45) {
-			_rectSourceSprite.left = 0;
-		}
-
-		_character.setTextureRect(_rectSourceSprite);
-		break;
-	case Keyboard::Space:
-		
-		_rectSourceSprite.top = 129;
-		//_rectSourceStick.top = 159;
-		//stick.setPosition(_character.getPosition().x, _character.getPosition().y + 70); // a sacre toute les affaire stick dans un autre affaire
-
-		_character.setTextureRect(_rectSourceSprite);
-		//stick.setTextureRect(rectSourceStick);
-		/*sleep_for(chrono::milliseconds(1000));*/
-		MiniGame miniGame;
-		//miniGame.play(getLvl(), getPositionX(), getPositionY());
-		//while (//peche)
-		//{
-		//    
-		//    if (Keyboard::Space)
-		//    {
-		//        break;
-		//    }
-		//}
-		break;
-
+	_character.move(0, -20);
+	_rectSourceSprite.top = 65;
+	_rectSourceSprite.left += 16;
+	if (_rectSourceSprite.left >= 45) {
+		_rectSourceSprite.left = 0;
 	}
+	_character.setTextureRect(_rectSourceSprite);
 }
+
+void PC::moveDown()
+{
+	_character.move(0, 20);
+	_rectSourceSprite.top = 0;
+	_rectSourceSprite.left += 16;
+	if (_rectSourceSprite.left >= 45) {
+		_rectSourceSprite.left = 0;
+	}
+	_character.setTextureRect(_rectSourceSprite);
+}
+
+void PC::moveRight()
+{
+	_character.move(20, 0);
+	_rectSourceSprite.top = 33;
+	_rectSourceSprite.left += 16;
+	if (_rectSourceSprite.left >= 45) {
+		_rectSourceSprite.left = 0;
+	}
+	_character.setTextureRect(_rectSourceSprite);
+}
+
+void PC::moveLeft()
+{
+	_character.move(-20, 0);
+	_rectSourceSprite.top = 97;
+	_rectSourceSprite.left += 16;
+	if (_rectSourceSprite.left >= 45) {
+		_rectSourceSprite.left = 0;
+	}
+	_character.setTextureRect(_rectSourceSprite);
+}
+
+void PC::animation()
+{
+	_rectSourceSprite.top = 225;
+
+	_rectSourceSprite.left += 16;
+	if (_rectSourceSprite.left >= 45) {
+		_rectSourceSprite.left = 0;
+	}
+
+	_character.setTextureRect(_rectSourceSprite);
+}
+
+void PC::space()
+{
+	_rectSourceSprite.top = 129;
+	//_rectSourceStick.top = 159;
+	//stick.setPosition(_character.getPosition().x, _character.getPosition().y + 70); // a sacre toute les affaire stick dans un autre affaire
+
+	_character.setTextureRect(_rectSourceSprite);
+	//stick.setTextureRect(rectSourceStick);
+	/*sleep_for(chrono::milliseconds(1000));*/
+	MiniGame miniGame;
+	//miniGame.play(getLvl(), getPositionX(), getPositionY());
+	//while (//peche)
+	//{
+	//    
+	//    if (Keyboard::Space)
+	//    {
+	//        break;
+	//    }
+	//}
+}
+
+
 
 void PC::limit()
 {

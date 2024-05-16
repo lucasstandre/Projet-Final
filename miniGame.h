@@ -3,6 +3,9 @@
 #include <vector>
 #include <ctime>
 #include <cassert>
+#include"Terain.h"
+#include"PC.h"
+#include"ShopKeeper.h"
 #include "SFML/Graphics.hpp"
 
 class MiniGame {
@@ -32,7 +35,7 @@ public:
 	void initatialiseShapes(); //setsize et settexture de tout les rectangle
 	void initialisePosition(int playerPosX, int playerposY); //set la position en fonction du joueur
 	void initialiseColor(); //set la color
-	bool play(int playerLevel, int playerPosX, int playerPosY, sf::RenderWindow window); //bool qui return true si on gagne le mini game et false si on perd
+	bool play(int playerLevel, int playerPosX, int playerPosY, sf::RenderWindow &window, Terain &terrain, PC player, ShopKeeper shopKeeper); //bool qui return true si on gagne le mini game et false si on perd
 
 	~MiniGame();
 

@@ -37,16 +37,18 @@ void Game::save(string characterSaveFile)
 
 }
 
-void Game::showMenu(sf::Event event)
+void Game::showMenu(sf::Event event, RenderWindow& window)
 {
 	//Menu du jeu de pêche stardew valley
 		fstream saveFile;
-
-		Window window(VideoMode(1489, 823), "Menu");
 		RectangleShape menu(sf::Vector2f(1489, 823));
 		Texture texturemenu;
-		texturemenu.loadFromFile("willy.png");
+		texturemenu.loadFromFile("controlsMenu.jpeg");
 		menu.setTexture(&texturemenu);
+
+		window.clear();
+		window.draw(menu);
+		window.display();
 
 		int moneyWilly;
 		int moneyLinus;
@@ -183,8 +185,11 @@ void Game::showMenu(sf::Event event)
 			break;
 
 		case Keyboard::Num2:
+			window.clear();
 			texturemenu.loadFromFile("controlsMenu.jpeg");
 			menu.setTexture(&texturemenu);
+			window.draw(menu);
+			window.display();
 			break;
 			//display the controls of the game with an image of the keyboard (can't do it until i have all the contrôls)
 
@@ -196,8 +201,11 @@ void Game::showMenu(sf::Event event)
 			break;
 
 		case Keyboard::Num4:
+			window.clear();
 			texturemenu.loadFromFile("fishGuide.jpeg");
 			menu.setTexture(&texturemenu);
+			window.draw(menu);
+			window.display();
 			//display the fish guide
 
 		default:

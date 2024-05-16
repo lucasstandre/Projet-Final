@@ -21,7 +21,12 @@ protected:
 	int getLvl() const;
 	void setMoney(int money);
 	void setLvl(int lvl);
-	void move(sf::Event);
+	void moveUp();
+	void moveDown();
+	void moveRight();
+	void moveLeft();
+	void animation();
+	void space();
 	void limit();
 
 
