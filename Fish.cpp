@@ -60,7 +60,7 @@ int Fish::getExpReceived()
 	return _expReceived;
 }
 
-sf::Texture& Fish::getFishTexture()
+sf::Texture& Fish::getFishTexture()//
 {
 	return _fishTexture;
 }
