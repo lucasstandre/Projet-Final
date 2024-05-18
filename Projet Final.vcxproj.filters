@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="FIshSprite">
+      <UniqueIdentifier>{a7d2949b-b2a9-4130-86fb-96cec77f2ee5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,13 +39,13 @@
     <ClCompile Include="Fish.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Fish_common.cpp">
+    <ClCompile Include="commonFish.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Fish_rare.cpp">
+    <ClCompile Include="rareFish.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Fish_Elite.cpp">
+    <ClCompile Include="eliteFish.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="FishingRod.cpp">
@@ -80,13 +83,13 @@
     <ClInclude Include="Fish.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Fish_common.h">
+    <ClInclude Include="commonFish.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Fish_rare.h">
+    <ClInclude Include="rareFish.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Fish_Elite.h">
+    <ClInclude Include="eliteFish.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="FishingRod.h">

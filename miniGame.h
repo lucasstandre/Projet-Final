@@ -15,7 +15,8 @@ private:
 		_waitedTime = 0, //notre compteur de boucle
 		_waitTime = rand() % 40 + 5, //une fois sur la fishpos, nombre de boucle a faire avant de rebouger
 		_fishPos, //definit aléatoirement une pos en y pour le fish a aller
-		_fishSpeed = rand() % 4 + 1; //vitesse aléatoire auquel le poisson bouge
+		_fishSpeed = rand() % 4 + 1, //vitesse aléatoire auquel le poisson bouge
+		_compteurBoucle = 0;
 
 	bool keyPressed = false, //permet de savoir si on a appuyé sur spacebar dans le minigame
 		lostMiniGame = false,
@@ -35,7 +36,9 @@ public:
 	void initatialiseShapes(); //setsize et settexture de tout les rectangle
 	void initialisePosition(int playerPosX, int playerposY); //set la position en fonction du joueur
 	void initialiseColor(); //set la color
+	bool waitingTime();
 	bool play(int playerLevel, int playerPosX, int playerPosY, sf::RenderWindow &window, Terain &terrain, PC player, ShopKeeper shopKeeper); //bool qui return true si on gagne le mini game et false si on perd
+	int loot(int odds);
 
 	~MiniGame();
 

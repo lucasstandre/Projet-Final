@@ -72,6 +72,20 @@ void MiniGame::initialiseColor()
 	_fish.setFillColor(sf::Color(100, 100, 100));
 }
 
+bool MiniGame::waitingTime()
+{
+	int loopToDo = rand() % 110 + 10;
+
+	if (_compteurBoucle == loopToDo) {
+		_compteurBoucle = 0;
+		return true;
+	}
+	else {
+		_compteurBoucle++;
+		return false;
+	}
+}
+
 bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow& window, Terain& terrain, PC player, ShopKeeper shopKeeper)
 {
 
@@ -105,7 +119,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 					break;
 
-				case Keyboard::C:
+				case Keyboard::Space:
 					keyPressed = true; // cette ligne empeche que la barre aille par en bas lorsque le joueur appuie sur spacebar
 
 					if (_greenBar.getPosition().y > 25 + (playerPosY-75))
@@ -206,19 +220,33 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 			winMiniGame = true;
 
+			window.clear();
+
 			return true;
 
-			window.clear();
+			
 		}
 		if (_completedScoreBar.getSize().y + 370 == _scoreBar.getSize().y) { //return false si le minigame est perdu
 
 			winMiniGame = true;
 
+			window.clear();
+
 			return false;
 
-			window.clear();
 		}
 	}
+}
+
+int MiniGame::loot(int odds)
+{
+	srand(time(0));
+	int dropRate = rand() & odds;
+
+	if (dropRate == odds)
+		odds--;
+	
+	return dropRate;
 }
 
 MiniGame::~MiniGame()

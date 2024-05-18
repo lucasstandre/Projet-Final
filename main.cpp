@@ -8,6 +8,10 @@
 #include "ShopKeeper.h"
 #include "Game.h"
 #include"miniGame.h"
+#include "Fish.h"
+#include "commonFish.h"
+#include "rareFish.h"
+#include "eliteFish.h"
 using namespace std::this_thread;
 
 using namespace sf;
@@ -23,6 +27,9 @@ int main() {
     chrono::duration<double> elapsedTime;
 
     // variable de game.h si je me trompe pas gang gang
+    bool isMiniGameIsActive = false;
+    bool canPlay = false;
+    bool spacePressed = false;
     RenderWindow window(VideoMode(1489, 823), "La valley des poissons");
     window.setFramerateLimit(60);
     Terain terain;
@@ -30,7 +37,18 @@ int main() {
     ShopKeeper pierre("pierre");
     MiniGame miniGame;
     Game game;
+    Fish earnedFish;
+    CommonFish allCommonFish; //a enlever
+    RareFish allRareFish;
+    EliteFish allEliteFish;
+    int fishValue; //important!! noue permet de savoir quelle poisson on veut exactement
+    int lootDrop;
+    int compteurBoucle = 0;
     startTime = chrono::steady_clock::now(); // Start the timer
+
+    allCommonFish.initialise();
+    allRareFish.initialise();
+    allEliteFish.initialise();
 
     while (window.isOpen()) {
         Event event;
@@ -67,23 +85,78 @@ int main() {
                         player.animation();
                         break;
                     case Keyboard::Space:
+                        spacePressed = true;
                         player.space();
-                        miniGame.play(player.getLvl(), player.getPositionX(), player.getPositionY(), window, terain, player, pierre);
-                        //code pour attraper le poisson
-                        //code pour que l'encule arrete de pecher
+
+                        //code pour que l'encule se batard de willy arrete de pecher
                         break;
 
                     }
                 }
             }
         }
+        if(spacePressed)
+        canPlay = miniGame.waitingTime();
 
+
+        if (canPlay == true) {   //si on a le temps on ajouter un "!" comme dans le vrai jeu       
+
+            isMiniGameIsActive = miniGame.play(player.getLvl(), player.getPositionX(), player.getPositionY(), window, terain, player, pierre);
+
+            if (isMiniGameIsActive == true) {
+
+                spacePressed = false; //remet a defaut
+
+                lootDrop = miniGame.loot(1000);
+
+                if (lootDrop >= 900) { // si on loot elite
+
+                    lootDrop = miniGame.loot(1);
+
+                    earnedFish = allEliteFish.returnFish(lootDrop);
+
+                    earnedFish.setFishTexture(allCommonFish.returnFish(lootDrop).getFishTexture());
+                }
+                else if (lootDrop >= 800) { // si on loot rare
+
+                    lootDrop = miniGame.loot(4);
+
+                    earnedFish = allRareFish.returnFish(lootDrop);
+
+                    earnedFish.setFishTexture(allCommonFish.returnFish(lootDrop).getFishTexture());
+
+                }
+                else if (lootDrop <= 500) { // si on loot common
+
+                    lootDrop = miniGame.loot(7);
+
+                    earnedFish = allCommonFish.returnFish(lootDrop);
+
+                    earnedFish.setFishTexture(allCommonFish.returnFish(lootDrop).getFishTexture());
+
+                }
+            }
+        }
             window.clear();
 
             window.draw(terain.ShowTerain());
             window.draw(pierre.ShowCharacter());
             window.draw(player.ShowCharacter());
 
+            if (isMiniGameIsActive != false) {
+
+                        compteurBoucle++;
+
+                window.draw(earnedFish.displayWindow());
+                   window.draw(earnedFish.displayFish());
+                window.draw(earnedFish.displayTextFish());
+
+                if(compteurBoucle == 15)
+                isMiniGameIsActive = false;  // Reset the mini-game status
+
+                canPlay = false;
+                compteurBoucle = 0;
+            }
             window.display();
 
             endTime = chrono::steady_clock::now(); // Stop the timer
