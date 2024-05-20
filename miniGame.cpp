@@ -74,7 +74,9 @@ void MiniGame::initialiseColor()
 
 bool MiniGame::waitingTime()
 {
-	int loopToDo = rand() % 110 + 10;
+	srand(time(0));
+
+	int loopToDo = rand() % 500 + 50;
 
 	if (_compteurBoucle == loopToDo) {
 		_compteurBoucle = 0;
@@ -99,7 +101,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 	_fishPos = rand() % 370 + 20 + (playerPosY-75);
 
-	while (lostMiniGame != true && winMiniGame != true) {
+	while (true) {
 		Event event;
 
 		while (window.pollEvent(event)) {
@@ -228,7 +230,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 		}
 		if (_completedScoreBar.getSize().y + 370 == _scoreBar.getSize().y) { //return false si le minigame est perdu
 
-			winMiniGame = true;
+			lostMiniGame = true;
 
 			window.clear();
 
@@ -241,7 +243,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 int MiniGame::loot(int odds)
 {
 	srand(time(0));
-	int dropRate = rand() & odds;
+	int dropRate = rand() % odds;
 
 	if (dropRate == odds)
 		odds--;
