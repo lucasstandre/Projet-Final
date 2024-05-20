@@ -18,8 +18,7 @@ using namespace sf;
 using namespace std;
 
 int main() {
-
-
+    
 
     //a partir d'ici, ca va dans game.play les petits boutchous
     chrono::steady_clock::time_point startTime;
@@ -54,7 +53,7 @@ int main() {
         Event event;
 
         while (window.pollEvent(event)) {
-
+            cout <<player.getPositionX() << " " << player.getPositionY() << endl;
             //  game.showMenu(event, window); CA MARCHE MAIS PAS BONNE IMAGE
             window.clear();
 
@@ -67,35 +66,50 @@ int main() {
                     switch (event.key.code)
                     {
                     case Keyboard::Escape:
-                        /*game.window().close();*/
+                        window.close();
                         break;
                     case Keyboard::Up:
                         player.moveUp();
+                        spacePressed = false; //test
                         break;
                     case Keyboard::Down:
                         player.moveDown();
+                        spacePressed = false; //test
                         break;
                     case Keyboard::Left:
                         player.moveLeft();
+                        spacePressed = false; //test
                         break;
                     case Keyboard::Right:
                         player.moveRight();
+                        spacePressed = false; //test
                         break;
                     case Keyboard::P:
                         player.animation();
+                        spacePressed = false; //test
                         break;
                     case Keyboard::Space:
-                        spacePressed = true;
-                        player.space();
-
+                        if (player.getPositionY()>=465)
+                        {
+                            spacePressed = true;
+                            player.space();
+                        }
+                        else if (player.getPositionY() >= 405 && player.getPositionX() < 985 && player.getPositionX() > 885)
+                        {
+                            bool quit;
+                            while (quit)
+                            {
+                                window.draw(pierre.shop());
+                                //pierre.interact(quit);
+                            }
+						}
                         //code pour que l'encule se batard de willy arrete de pecher
                         break;
-
                     }
                 }
             }
         }
-        if(spacePressed)
+        if(spacePressed==true)
         canPlay = miniGame.waitingTime();
 
 
@@ -107,11 +121,13 @@ int main() {
 
                 spacePressed = false; //remet a defaut
 
+                canPlay = false;
+
                 lootDrop = miniGame.loot(1000);
 
                 if (lootDrop >= 900) { // si on loot elite
 
-                    lootDrop = miniGame.loot(1);
+                    lootDrop = miniGame.loot(2);
 
                     earnedFish = allEliteFish.returnFish(lootDrop);
 
@@ -132,9 +148,12 @@ int main() {
 
                     earnedFish = allCommonFish.returnFish(lootDrop);
 
-                    earnedFish.setFishTexture(allCommonFish.returnFish(lootDrop).getFishTexture());
+                         earnedFish.setFishTexture(allCommonFish.returnFish(lootDrop).getFishTexture());
 
                 }
+            }
+            else {
+               
             }
         }
             window.clear();
@@ -148,20 +167,19 @@ int main() {
                         compteurBoucle++;
 
                 window.draw(earnedFish.displayWindow());
-                   window.draw(earnedFish.displayFish());
+                window.draw(earnedFish.displayFish());
                 window.draw(earnedFish.displayTextFish());
 
-                if(compteurBoucle == 15)
-                isMiniGameIsActive = false;  // Reset the mini-game status
+                if (compteurBoucle == 75) {
+                    isMiniGameIsActive = false;  // Reset the mini-game status
+                    compteurBoucle = 0;
+                }
 
-                canPlay = false;
-                compteurBoucle = 0;
             }
             window.display();
 
             endTime = chrono::steady_clock::now(); // Stop the timer
             elapsedTime = endTime - startTime;
-            cout << "Elapsed time: " << elapsedTime.count() << " seconds" << endl;
 
         }
 

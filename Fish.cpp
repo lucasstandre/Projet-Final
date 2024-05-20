@@ -19,7 +19,7 @@ void Fish::setName(std::string name)
 
 
 	_name.setFont(_textFont);
-	_name.setCharacterSize(50);
+	_name.setCharacterSize(40);
 }
 
 void Fish::setGoldValue(int gold)
@@ -48,6 +48,7 @@ void Fish::setFishTexture(std::string nameFile)
 
 void Fish::setFishTexture(sf::Texture& fishTexture){
 	_fishTexture = fishTexture;
+	_fish.setTexture(&fishTexture);
 
 }
 int Fish::getGoldValue()
@@ -92,7 +93,9 @@ sf::Text& Fish::displayTextFish()
 	return _name;
 }
 sf::RectangleShape& Fish::displayFish(){
-	_fish.setTexture(&_fishTexture);
+
+	_fish.setPosition(sf::Vector2f(625, 400));
+	_fish.setSize(sf::Vector2f(200, 200));
 	return _fish;
 }
 

@@ -13,6 +13,7 @@ protected:
 	sf::RectangleShape _DisplayWindow;
 	sf::Font _textFont;
 	sf::Text _name;
+
 	sf::Texture _fishTexture;
 	sf::Texture _DisplayWindowTexture;
 

@@ -102,6 +102,7 @@ void PC::animation()
 
 void PC::space()
 {
+
 	_rectSourceSprite.top = 129;
 	//_rectSourceStick.top = 159;
 	//stick.setPosition(_character.getPosition().x, _character.getPosition().y + 70); // a sacre toute les affaire stick dans un autre affaire
@@ -109,6 +110,7 @@ void PC::space()
 	_character.setTextureRect(_rectSourceSprite);
 	//stick.setTextureRect(rectSourceStick);
 	/*sleep_for(chrono::milliseconds(1000));*/
+	
 	MiniGame miniGame;
 	//miniGame.play(getLvl(), getPositionX(), getPositionY());
 	//while (//peche)
@@ -143,11 +145,15 @@ void PC::limit()
 	}
 	else if (_character.getPosition().y<=385 && _character.getPosition().x>=385)
 	{
-		_character.setPosition(_character.getPosition().x, _character.getPosition().y+20);
+		if (_character.getPosition().x >= 385)
+		{
+			_character.setPosition(_character.getPosition().x - 20, _character.getPosition().y);
+
+		}
+		else
+		{
+			_character.setPosition(_character.getPosition().x, _character.getPosition().y + 20);
+		}
 	}
-	else if (_character.getPosition().y<=385 && _character.getPosition().x>=385)
-	{
-		_character.setPosition(_character.getPosition().x -20, _character.getPosition().y);
-	}	
 }
 

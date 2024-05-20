@@ -36,6 +36,7 @@ void CommonFish::initialise()
 	for (int i = 0; i < 7; i++) {
 		_commonFish[i].setExpReceived(1);
 		_commonFish[i].setGoldValue(25);
+		_name.setFont(_textFont);
 
 	}
 }
