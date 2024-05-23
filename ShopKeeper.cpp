@@ -37,10 +37,10 @@ sf::RectangleShape ShopKeeper::shop()
 
 bool ShopKeeper::interact()
 {
-	//switch (switch_on)
-	//{
-	//default:
-	//	break;
-	//}
+	switch (switch_on)
+	{
+	default:
+		break;
+	}
 	return false;
 }

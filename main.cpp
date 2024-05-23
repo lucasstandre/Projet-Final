@@ -29,7 +29,6 @@ int main() {
     bool isMiniGameIsActive = false;
     bool canPlay = false;
     bool spacePressed = false;
-    bool quit = false;;
     RenderWindow window(VideoMode(1489, 823), "La valley des poissons");
     window.setFramerateLimit(60);
     Terain terain;
@@ -97,7 +96,7 @@ int main() {
                         }
                         else if (player.getPositionY() >= 405 && player.getPositionX() < 985 && player.getPositionX() > 885)
                         {
-
+                            bool quit;
                             while (quit)
                             {
                                 window.draw(pierre.shop());
@@ -106,7 +105,6 @@ int main() {
 						}
                         //code pour que l'encule se batard de willy arrete de pecher
                         break;
-                        quit = false;
                     }
                 }
             }
