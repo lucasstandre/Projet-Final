@@ -145,6 +145,7 @@
     <ClCompile Include="Terain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="OST1.ogg" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
   <ItemGroup>
     <Image Include="C.Salmon.png" />
     <Image Include="fishingBarSprite.png" />
+    <Image Include="Prettywillymenu.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EmoWillySave.txt" />

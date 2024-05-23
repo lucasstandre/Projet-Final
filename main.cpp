@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -40,12 +41,16 @@ int main() {
     EliteFish allEliteFish;
     int fishValue; //important!! noue permet de savoir quelle poisson on veut exactement
     int lootDrop;
+    int moneyPC = 0;
     int compteurBoucle = 0;
-    startTime = chrono::steady_clock::now(); // Start the timer
-
     allCommonFish.initialise();
     allRareFish.initialise();
     allEliteFish.initialise();
+
+    Music backgroundMusic;
+    backgroundMusic.openFromFile("OST1.ogg");
+    backgroundMusic.setLoop(true); // This will make the music loop
+    backgroundMusic.play();
 
     while (window.isOpen()) {
         Event event;
@@ -87,6 +92,9 @@ int main() {
                     case Keyboard::P:
                         player.animation();
                         spacePressed = false; //test
+                        break;
+                    case Keyboard::S:
+                        game.save("willySave.txt", moneyPC);
                         break;
                     case Keyboard::Space:
                         if (player.getPositionY()>=465)

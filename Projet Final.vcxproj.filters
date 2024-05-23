@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="OST1.ogg">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -111,6 +114,9 @@
     </Image>
     <Image Include="fishingBarSprite.png">
       <Filter>Fichiers sources</Filter>
+    </Image>
+    <Image Include="Prettywillymenu.jpg">
+      <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
