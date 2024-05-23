@@ -166,6 +166,11 @@
     <Image Include="C.Salmon.png" />
     <Image Include="fishingBarSprite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="EmoWillySave.txt" />
+    <Text Include="PrettyWillySave.txt" />
+    <Text Include="WillySave.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

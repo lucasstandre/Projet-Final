@@ -10,20 +10,9 @@
 #include "ShopKeeper.h"
 #include "Terain.h"
 #include "PC.h"
+
 using namespace sf;
-
 using namespace std;
-
-
-//Game::Game()
-//{
-//
-//}
-//
-//void Game::intialize()
-//{
-//
-//}
 
 void Game::save(string characterSaveFile)
 {
@@ -34,193 +23,228 @@ void Game::save(string characterSaveFile)
     {
         exit(1);
     }
-
 }
 
-void Game::showMenu(sf::Event event, RenderWindow& window)
+void Game::showMenu(sf::RenderWindow& window)
 {
-	//Menu du jeu de pêche stardew valley
-		fstream saveFile;
-		RectangleShape menu(sf::Vector2f(1489, 823));
-		Texture texturemenu;
-		texturemenu.loadFromFile("controlsMenu.jpeg");
-		menu.setTexture(&texturemenu);
+    // Menu setup
+    fstream saveFile;
+    RectangleShape menu(Vector2f(1489, 823));
+    Texture texturemenu;
+    texturemenu.loadFromFile("Menu1.jpg");
+    menu.setTexture(&texturemenu);
 
-		window.clear();
-		window.draw(menu);
-		window.display();
+    window.clear();
+    window.draw(menu);
+    window.display();
 
-		int moneyWilly;
-		int moneyLinus;
-		int moneyPierre;
+    int moneyWilly;
+    int moneyPrettyWilly;
+    int moneyEmoWilly;
 
-		PC Willy("Willy");
-		PC Linus("Linux");
-		PC Pierre("Pierre");
+    PC Willy("Willy");
+    PC prettyWilly("Pretty Willy");
+    PC emoWilly("Emo Willy");
 
-		saveFile.open("WillySave.txt", ios::out);
-		saveFile >> moneyWilly;
-		saveFile.close();
+    saveFile.open("WillySave.txt", ios::in);
+    if (saveFile.is_open()) {
+        saveFile >> moneyWilly;
+        saveFile.close();
+    }
 
-		saveFile.open("LinusSave.txt", ios::out);
-		saveFile >> moneyLinus;
-		saveFile.close();
+    saveFile.open("PrettyWillySave.txt", ios::in);
+    if (saveFile.is_open()) {
+        saveFile >> moneyPrettyWilly;
+        saveFile.close();
+    }
 
-		saveFile.open("PierreSave.txt", ios::out);
-		saveFile >> moneyPierre;
-		saveFile.close();
+    saveFile.open("EmoWillySave.txt", ios::in);
+    if (saveFile.is_open()) {
+        saveFile >> moneyEmoWilly;
+        saveFile.close();
+    }
 
-		Willy.setMoney(moneyWilly);
-		Linus.setMoney(moneyLinus);
-		Pierre.setMoney(moneyLinus);
+    Willy.setMoney(moneyWilly);
+    prettyWilly.setMoney(moneyPrettyWilly);
+    emoWilly.setMoney(moneyEmoWilly);
 
-		
+    sf::Event event;
+    while (window.isOpen())
+    {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
 
-		/*cout << "MENU" << endl << endl << endl << endl;
-		cout << "1. load a game" << endl;
-		cout << "2. controls" << endl;
-		cout << "3. statistics" << endl;
-		cout << "4. fish guide" << endl << endl;
+            if (event.type == sf::Event::KeyPressed)
+            {
+                switch (event.key.code)
+                {
+                case Keyboard::Num1:
+                    texturemenu.loadFromFile("Willychoicemenu.jpg");
+                    menu.setTexture(&texturemenu);
+                    window.clear();
+                    window.draw(menu);
+                    window.display();
 
-		cout << "your choice: ";*/
-		
+                    while (window.pollEvent(event))
+                    {
+                        if (event.type == sf::Event::Closed)
+                        {
+                            window.close();
+                        }
+                        if (event.type == sf::Event::KeyPressed)
+                        {
+                            switch (event.key.code)
+                            {
+                            case Keyboard::Num1:
+                                texturemenu.loadFromFile("Willymenu.jpg");
+                                menu.setTexture(&texturemenu);
+                                window.clear();
+                                window.draw(menu);
+                                window.display();
 
-		switch (event.key.code)
-		{
-		case Keyboard::Num1:
-			//cout << "Chose your character" << endl;
-			//cout << "1. Willy           "; //<< willy.getMoney() << "g" << endl;
-			//cout << "2. Linus           "; // << linus.getMoney() << "g" << endl;
-			//cout << "3. Pierre          "; //<< pierre.getMoney() << "g" << endl;
-			//
+                                while (window.pollEvent(event))
+                                {
+                                    if (event.type == sf::Event::Closed)
+                                    {
+                                        window.close();
+                                    }
+                                    if (event.type == sf::Event::KeyPressed)
+                                    {
+                                        switch (event.key.code)
+                                        {
+                                        case Keyboard::Num1:
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Num2:
+                                            moneyWilly = 0; // reset Willy's money
+                                            Willy.setMoney(0); // reset Willy's money
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Escape:
+                                            return;
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
 
-			switch (event.key.code)
-			{
-			case Keyboard::Num1:
-				/*cout << "Do you want to :" << endl;
-				cout << "1. load the save of Willy" << endl;
-				cout << "2. erase the save and play Willy from the start" << endl;*/
+                            case Keyboard::Num2:
+                                texturemenu.loadFromFile("Prettywillymenu.jpg");
+                                menu.setTexture(&texturemenu);
+                                window.clear();
+                                window.draw(menu);
+                                window.display();
 
-				switch (event.key.code)
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			
-				{
-				case 1:
-					
-						
-					
+                                while (window.pollEvent(event))
+                                {
+                                    if (event.type == sf::Event::Closed)
+                                    {
+                                        window.close();
+                                    }
+                                    if (event.type == sf::Event::KeyPressed)
+                                    {
+                                        switch (event.key.code)
+                                        {
+                                        case Keyboard::Num1:
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Num2:
+                                            moneyPrettyWilly = 0; // reset Pretty Willy's money
+                                            prettyWilly.setMoney(0); // reset Pretty Willy's money
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Escape:
+                                            return;
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
 
-					//PLAY GAME
-					break;
-				case 2:
-					
-					moneyWilly = 0;//reset willy's money
-					Willy.setMoney(0); //reset willy's money
-					//erase willy's save and start game with willy at 0g
+                            case Keyboard::Num3:
+                                texturemenu.loadFromFile("emoWillyMenu.jpg");
+                                menu.setTexture(&texturemenu);
+                                window.clear();
+                                window.draw(menu);
+                                window.display();
 
-					//PLAY GAME
-					break;
-				default:
-					break;
-				}
-				break;
+                                while (window.pollEvent(event))
+                                {
+                                    if (event.type == sf::Event::Closed)
+                                    {
+                                        window.close();
+                                    }
+                                    if (event.type == sf::Event::KeyPressed)
+                                    {
+                                        switch (event.key.code)
+                                        {
+                                        case Keyboard::Num1:
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Num2:
+                                            moneyEmoWilly = 0; // reset Emo Willy's money
+                                            emoWilly.setMoney(0); // reset Emo Willy's money
+                                            // Play the game
+                                            //play();
+                                            break;
+                                        case Keyboard::Escape:
+                                            return;
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
 
-			case Keyboard::Num2:
-				/*cout << "Do you want to :" << endl;
-				cout << "1. load the save of Linus" << endl;
-				cout << "2. erase the save and play Linus from the start" << endl;*/
+                            case Keyboard::Escape:
+                                return;
 
-				switch (event.key.code)
-				{
-				case Keyboard::Num1:
-					
+                            default:
+                                break;
+                            }
+                        }
+                    }
+                    break;
 
-					//PLAY GAME
+                case Keyboard::Num2:
+                    texturemenu.loadFromFile("controls_menu.jpeg");
+                    menu.setTexture(&texturemenu);
+                    window.clear();
+                    window.draw(menu);
+                    window.display();
+                    break;
 
-					break;
+                case Keyboard::Num3:
+                    std::cout << "Statistics" << std::endl << std::endl;
+                    std::cout << "Willy has " << moneyWilly << "g" << std::endl;
+                    std::cout << "Pretty Willy has " << moneyPrettyWilly << "g" << std::endl;
+                    std::cout << "Emo Willy has " << moneyEmoWilly << "g" << std::endl;
+                    break;
 
-				case Keyboard::Num2:
-					
-					moneyLinus = 0; //reset linus's money
-					Linus.setMoney(0); //reset linus's money
-					//erase linus's save and start game with linus at 0g
+                case Keyboard::Num4:
+                    texturemenu.loadFromFile("fishGuide.jpeg");
+                    menu.setTexture(&texturemenu);
+                    window.clear();
+                    window.draw(menu);
+                    window.display();
+                    break;
 
-					//PLAY GAME
-					break;
-
-				default:
-					break;
-				}
-				break;
-
-			case Keyboard::Num3:
-				/*cout << "Do you want to :" << endl;
-				cout << "1. load the save of Pierre" << endl;
-				cout << "2. erase the save and play Pierre from the start" << endl;*/
-				
-
-				switch (event.key.code)
-				{
-				case  Keyboard::Num1:
-					
-					//PLAY GAME
-
-					break;
-				case Keyboard::Num3:
-					
-					moneyPierre = 0; //reset Pierre's money
-					Pierre.setMoney(0); //reset Pierre's money
-					//erase Pierre's save and start game with linus at 0g
-
-					//PLAY GAME
-					break;
-				default:
-					 
-					break;
-				}
-				break;
-			default:
-				break;
-			}
-
-			break;
-
-		case Keyboard::Num2:
-			window.clear();
-			texturemenu.loadFromFile("controlsMenu.jpeg");
-			menu.setTexture(&texturemenu);
-			window.draw(menu);
-			window.display();
-			break;
-			//display the controls of the game with an image of the keyboard (can't do it until i have all the contrôls)
-
-		case Keyboard::Num3:
-			std::cout << "Statistics" << endl << endl;
-			std::cout << "Willy has " << moneyWilly << "g" << endl; //get the gold of willy
-			std::cout << "Linus has " << moneyLinus <<"g" << endl; //get the gold of linus
-			std::cout << "Pierre has " << moneyPierre << "g" << endl; //get the gold of pierre
-			break;
-
-		case Keyboard::Num4:
-			window.clear();
-			texturemenu.loadFromFile("fishGuide.jpeg");
-			menu.setTexture(&texturemenu);
-			window.draw(menu);
-			window.display();
-			//display the fish guide
-
-		default:
-			
-			break;
-		}
-
-
-
-		system("pause");
-	}
-
-//
-//void Game::miniGame()
-//{
-//    //fish.selectRandomFish();
-//
-//}
+                default:
+                    break;
+                }
+            }
+        }
+    }
+    system("pause");
+}

@@ -18,8 +18,6 @@ using namespace sf;
 using namespace std;
 
 int main() {
-    
-
     //a partir d'ici, ca va dans game.play les petits boutchous
     chrono::steady_clock::time_point startTime;
     chrono::steady_clock::time_point endTime;
@@ -52,7 +50,9 @@ int main() {
     while (window.isOpen()) {
         Event event;
 
+   
         while (window.pollEvent(event)) {
+            game.showMenu(window);
             cout <<player.getPositionX() << " " << player.getPositionY() << endl;
             //  game.showMenu(event, window); CA MARCHE MAIS PAS BONNE IMAGE
             window.clear();
@@ -96,12 +96,10 @@ int main() {
                         }
                         else if (player.getPositionY() >= 405 && player.getPositionX() < 985 && player.getPositionX() > 885)
                         {
-                            bool quit;
-                            while (quit)
-                            {
+
                                 window.draw(pierre.shop());
                                 //pierre.interact(quit);
-                            }
+                            
 						}
                         //code pour que l'encule se batard de willy arrete de pecher
                         break;

@@ -107,10 +107,21 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="C.Salmon.png">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers sources</Filter>
     </Image>
     <Image Include="fishingBarSprite.png">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers sources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="WillySave.txt">
+      <Filter>Fichiers sources</Filter>
+    </Text>
+    <Text Include="EmoWillySave.txt">
+      <Filter>Fichiers sources</Filter>
+    </Text>
+    <Text Include="PrettyWillySave.txt">
+      <Filter>Fichiers sources</Filter>
+    </Text>
   </ItemGroup>
 </Project>
