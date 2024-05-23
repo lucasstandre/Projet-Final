@@ -36,56 +36,64 @@ int PC::getLvl() const
 
 void PC::setMoney(int money)
 {
-	_money = money;
+	_money =+ money;
 }
 
-void PC::setLvl(int lvl)
+void PC::setLvl(bool lvl)
 {
-		_Lvl = lvl;
+		_Lvl =+ lvl;
 }
 
 void PC::moveUp()
 {
-	_character.move(0, -20);
+	if (_character.getPosition().y > -75 && _character.getPosition().x <= 395 || _character.getPosition().x >= 385 && _character.getPosition().y >= 385){
+	_character.move(0, -10);
 	_rectSourceSprite.top = 65;
 	_rectSourceSprite.left += 16;
 	if (_rectSourceSprite.left >= 45) {
 		_rectSourceSprite.left = 0;
 	}
 	_character.setTextureRect(_rectSourceSprite);
+	}
 }
 
 void PC::moveDown()
 {
-	_character.move(0, 20);
-	_rectSourceSprite.top = 0;
-	_rectSourceSprite.left += 16;
-	if (_rectSourceSprite.left >= 45) {
-		_rectSourceSprite.left = 0;
+	if (_character.getPosition().y < 485) {
+		_character.move(0, 10);
+		_rectSourceSprite.top = 0;
+		_rectSourceSprite.left += 16;
+		if (_rectSourceSprite.left >= 45) {
+			_rectSourceSprite.left = 0;
+		}
+		_character.setTextureRect(_rectSourceSprite);
 	}
-	_character.setTextureRect(_rectSourceSprite);
 }
 
 void PC::moveRight()
 {
-	_character.move(20, 0);
-	_rectSourceSprite.top = 33;
-	_rectSourceSprite.left += 16;
-	if (_rectSourceSprite.left >= 45) {
-		_rectSourceSprite.left = 0;
+	if (_character.getPosition().x < 1205 && _character.getPosition().y >= 375 || _character.getPosition().y <= 385 && _character.getPosition().x <= 385) {
+			_character.move(10, 0);
+			_rectSourceSprite.top = 33;
+			_rectSourceSprite.left += 16;
+			if (_rectSourceSprite.left >= 45) {
+				_rectSourceSprite.left = 0;
+			}
+			_character.setTextureRect(_rectSourceSprite);
 	}
-	_character.setTextureRect(_rectSourceSprite);
 }
 
 void PC::moveLeft()
 {
-	_character.move(-20, 0);
-	_rectSourceSprite.top = 97;
-	_rectSourceSprite.left += 16;
-	if (_rectSourceSprite.left >= 45) {
-		_rectSourceSprite.left = 0;
+	if (_character.getPosition().x > 225) {
+		_character.move(-10, 0);
+		_rectSourceSprite.top = 97;
+		_rectSourceSprite.left += 16;
+		if (_rectSourceSprite.left >= 45) {
+			_rectSourceSprite.left = 0;
+		}
+		_character.setTextureRect(_rectSourceSprite);
 	}
-	_character.setTextureRect(_rectSourceSprite);
 }
 
 void PC::animation()
@@ -125,35 +133,6 @@ void PC::space()
 
 
 
-void PC::limit()
-{
-	if (_character.getPosition().x > 1205)
-	{
-		_character.setPosition(_character.getPosition().x - 20, _character.getPosition().y);
-	}
-	else if (_character.getPosition().x < 225) 
-	{
-		_character.setPosition(_character.getPosition().x + 20, _character.getPosition().y);
-	}
-	else if (_character.getPosition().y > 485)
-	{
-		_character.setPosition(_character.getPosition().x, _character.getPosition().y - 20);
-	}
-	else if (_character.getPosition().y < -75)
-	{
-		_character.setPosition(_character.getPosition().x, _character.getPosition().y + 20);
-	}
-	else if (_character.getPosition().y<=385 && _character.getPosition().x>=385)
-	{
-		if (_character.getPosition().x >= 385)
-		{
-			_character.setPosition(_character.getPosition().x - 20, _character.getPosition().y);
 
-		}
-		else
-		{
-			_character.setPosition(_character.getPosition().x, _character.getPosition().y + 20);
-		}
-	}
-}
+
 

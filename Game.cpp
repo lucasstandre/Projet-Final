@@ -5,8 +5,6 @@
 #include "Game.h"
 #include "Character.h"
 #include "Fish.h"
-#include "FishingRod.h"
-#include "NPC.h"
 #include "ShopKeeper.h"
 #include "Terain.h"
 #include "PC.h"

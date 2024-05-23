@@ -131,15 +131,12 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Fish.cpp" />
-    <ClCompile Include="FishingRod.cpp" />
     <ClCompile Include="commonFish.cpp" />
     <ClCompile Include="eliteFish.cpp" />
     <ClCompile Include="rareFish.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Genvieve.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="miniGame.cpp" />
-    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PC.cpp" />
     <ClCompile Include="ShopKeeper.cpp" />
     <ClCompile Include="Terain.cpp" />
@@ -151,14 +148,11 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Fish.h" />
-    <ClInclude Include="FishingRod.h" />
     <ClInclude Include="commonFish.h" />
     <ClInclude Include="eliteFish.h" />
     <ClInclude Include="rareFish.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Genvieve.h" />
     <ClInclude Include="miniGame.h" />
-    <ClInclude Include="NPC.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="ShopKeeper.h" />
     <ClInclude Include="Terain.h" />

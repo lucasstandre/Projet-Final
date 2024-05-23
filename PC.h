@@ -13,21 +13,26 @@ class PC : public Character
 protected:
 
 	int _money;
-	int _Lvl;
+	double _Lvl = 0;
+
 	public:
+
 		PC();
 		PC(std::string);
+
 	int getMoney() const;
 	int getLvl() const;
+
 	void setMoney(int money);
-	void setLvl(int lvl);
+	void setLvl(bool lvl);
+
 	void moveUp();
 	void moveDown();
 	void moveRight();
 	void moveLeft();
 	void animation();
 	void space();
-	void limit();
+
 
 
 };

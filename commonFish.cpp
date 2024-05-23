@@ -34,7 +34,7 @@ void CommonFish::initialise()
 	_commonFish[6].setName("A Walleye, cool!");
 
 	for (int i = 0; i < 7; i++) {
-		_commonFish[i].setExpReceived(1);
+		_commonFish[i].setExpReceived(0.1);
 		_commonFish[i].setGoldValue(25);
 		_name.setFont(_textFont);
 

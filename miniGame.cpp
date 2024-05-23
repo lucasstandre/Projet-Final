@@ -3,7 +3,7 @@
 using namespace std;
 using namespace sf;
 
-void MiniGame::setPlayerBar(int playerLevel)
+void MiniGame::setPlayerBar(double playerLevel)
 {
 	assert(playerLevel >= 0);
 	_playerLevel = playerLevel;

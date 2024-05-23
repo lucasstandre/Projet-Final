@@ -7,7 +7,7 @@ class Fish
 {
 protected:
 	int _goldValue;
-	int _expReceived;
+	double _expReceived;
 
 	sf::RectangleShape _fish;
 	sf::RectangleShape _DisplayWindow;
@@ -20,7 +20,7 @@ protected:
 public:
 
 	void setGoldValue(int gold);
-	void setExpReceived(int exp);
+	void setExpReceived(double exp);
 	void setFishTexture(std::string nameFile);
 	void setFishTexture(sf::Texture& _fishTexture);
 	void setName(std::string name);

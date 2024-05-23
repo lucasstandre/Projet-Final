@@ -28,7 +28,7 @@ void Fish::setGoldValue(int gold)
 	_goldValue = gold;
 }
 
-void Fish::setExpReceived(int exp)
+void Fish::setExpReceived(double exp)
 {
 	assert(exp > 0);
 	_expReceived = exp;

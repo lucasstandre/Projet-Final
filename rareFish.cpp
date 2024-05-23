@@ -28,7 +28,7 @@ void RareFish::initialise()
 	_rareFish[3].setName("a Midnight Squid, uwu");
 
 	for (int i = 0; i < 3; i++) {
-		_rareFish[i].setExpReceived(5);
+		_rareFish[i].setExpReceived(0.25);
 		_rareFish[i].setGoldValue(50);
 		_name.setFont(_textFont);
 	}
