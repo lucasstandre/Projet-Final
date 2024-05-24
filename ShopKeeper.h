@@ -9,7 +9,7 @@ protected:
 		sf::RectangleShape _shop;
 		sf::Texture _shopTexture; 
 public:
-	ShopKeeper(std::string CharacterPng);
+	ShopKeeper();
 	sf::RectangleShape shop();
 	bool interact();
 };
