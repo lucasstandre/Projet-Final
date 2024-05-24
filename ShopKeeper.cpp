@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 
-ShopKeeper::ShopKeeper(std::string CharacterPng)
+ShopKeeper::ShopKeeper()
 {
-	setCharacter(CharacterPng);
+	setCharacter("pierre");
 	_character.setPosition(925, 345);
 }
 

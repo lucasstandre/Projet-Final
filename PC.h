@@ -4,7 +4,6 @@
 #include <thread>
 #include <SFML/Graphics.hpp>
 #include "Character.h"
-#include"Game.h"
 #include "PC.h"
 
 

@@ -158,6 +158,7 @@
     <ClInclude Include="Terain.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\lucasstandre\Projet-Final\menuBG.jpeg" />
     <Image Include="C.Salmon.png" />
     <Image Include="fishingBarSprite.png" />
     <Image Include="Prettywillymenu.jpg" />

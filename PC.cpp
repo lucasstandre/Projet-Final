@@ -14,6 +14,8 @@ using namespace sf;
 using namespace std;
 PC::PC()
 {
+	setCharacter("willy");
+	_character.setPosition(585, 485);
     _money = 0;
 	_Lvl = 1;
 }
