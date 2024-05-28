@@ -133,6 +133,23 @@ void PC::space()
 	//}
 }
 
+sf::Text &PC::showMoney()
+{
+	_text.setString(std::to_string(_money));
+	_text.setCharacterSize(30);
+	_font.loadFromFile("Stardew_Valley.ttf");
+
+	if (!_font.loadFromFile("Stardew_Valley.ttf"))
+	{
+		cout << "erreur de police!";
+	}
+	_text.setFont(_font);
+	_text.setFillColor(sf::Color(165,42,42));
+	_text.setPosition(1405,2 );
+	return _text;
+
+}
+
 
 
 

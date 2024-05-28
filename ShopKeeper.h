@@ -8,9 +8,10 @@ class ShopKeeper : public Character
 protected:
 		sf::RectangleShape _shop;
 		sf::Texture _shopTexture; 
+		sf::Text _text;
 public:
 	ShopKeeper();
 	sf::RectangleShape shop();
-	bool interact();
+	sf::Text interact();
 };
 

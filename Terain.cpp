@@ -41,3 +41,18 @@ sf::RectangleShape& Terain::ShowTerain()
     return _background;
 
 }
+
+sf::RectangleShape& Terain::ShowG()
+{
+    _G.setSize(sf::Vector2f(189, 29));
+    _G.setPosition(1300, 3);
+
+    _GTexture.loadFromFile("Gold.png");
+    if (_GTexture.loadFromFile("Gold.png"))
+    {
+
+    }
+    _G.setTexture(&_GTexture);
+    return _G;
+    // TODO: insérer une instruction return ici
+}

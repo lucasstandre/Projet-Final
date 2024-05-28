@@ -100,6 +100,8 @@ void Game::initializeAll()
     initializeWindow();
 }
 
+
+
 void Game::start() {
     initializeAll();
     startMenu();
@@ -122,9 +124,9 @@ void Game::startMenu()
     int moneyPrettyWilly=0;
     int moneyEmoWilly=0;
 
-    PC Willy("Willy");
-    PC prettyWilly("Pretty Willy");
-    PC emoWilly("Emo Willy");
+    PC Willy("willy");
+    PC prettyWilly("prettywilly");
+    PC emoWilly("emowilly");
 
     saveFile.open("WillySave.txt", ios::in);
     if (saveFile.is_open()) {
@@ -263,11 +265,13 @@ void Game::startMenu()
                                                 switch (event.key.code)
                                                 {
                                                 case Keyboard::Num1:
+                                                    _player.setCharacter("prettywilly");
                                                     Play();
                                                     break;
                                                 case Keyboard::Num2:
                                                     moneyPrettyWilly = 0; // reset Pretty Willy's money
                                                     prettyWilly.setMoney(0); // reset Pretty Willy's money
+                                                    _player.setCharacter("prettywilly");
                                                     Play();
                                                     break;
                                                 default:
@@ -304,11 +308,14 @@ void Game::startMenu()
                                                 switch (event.key.code)
                                                 {
                                                 case Keyboard::Num1:
+                                                    _player.setCharacter("emowilly");
                                                     Play();
+                                                    
                                                     break;
                                                 case Keyboard::Num2:
                                                     moneyEmoWilly = 0; // reset Emo Willy's money
                                                     emoWilly.setMoney(0); // reset Emo Willy's money
+                                                    _player.setCharacter("emowilly");
                                                     Play();
                                                     break;
                                                 default:
@@ -434,7 +441,7 @@ void Game::Play()
 
         while (_window.pollEvent(event)) {
 
-            cout << _player.getPositionX() << " " << _player.getPositionY() << endl;
+           
             _window.clear();
 
             if (event.type == Event::Closed) {
@@ -476,12 +483,16 @@ void Game::Play()
                             _spacePressed = true;
                             _player.space();
                         }
-                        else if (_player.getPositionY() >= 405 && _player.getPositionX() < 985 && _player.getPositionX() > 885)
+
+                        //code pour que l'encule se batard de willy arrete de pecher
+                        break;
+                    case Keyboard::C:
+                        if (_player.getPositionY() >= 405 && _player.getPositionX() < 985 && _player.getPositionX() > 885)
                         {
-
+                            _window.clear();
                             _window.draw(_pierre.shop());
-                            //pierre.interact(quit);
-
+                            _window.draw(_pierre.interact());
+                            _window.display();
                         }
                         //code pour que l'encule se batard de willy arrete de pecher
                         break;
@@ -541,6 +552,9 @@ void Game::Play()
         _window.draw(_terrain.ShowTerain());
         _window.draw(_pierre.ShowCharacter());
         _window.draw(_player.ShowCharacter());
+        _window.draw(_terrain.ShowG());
+        _window.draw(_player.showMoney());
+
 
 
         if (_isMiniGameWon != false) {

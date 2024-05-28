@@ -13,6 +13,8 @@ protected:
 
 	int _money;
 	double _Lvl = 0;
+	sf::Text _text;
+	sf::Font _font;
 
 	public:
 
@@ -31,6 +33,7 @@ protected:
 	void moveLeft();
 	void animation();
 	void space();
+	sf::Text &showMoney();
 
 
 

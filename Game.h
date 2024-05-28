@@ -49,7 +49,6 @@ public:
     void initializeBgMusic();
     void initializeWindow();
     void initializeAll();
-
     void Play();
     void start();
     void save(std::string characterSaveFile, int moneyPC);
