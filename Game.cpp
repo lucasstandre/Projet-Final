@@ -62,7 +62,7 @@ void Game::setText(int willy, int pos, string nameWilly)
 {
     string text = nameWilly+" has " + to_string(willy) + "g";
     _name.setString(text);
-    _name.setPosition(sf::Vector2f(450, pos));
+    _name.setPosition(sf::Vector2f(600, pos));
 
     _textFont.loadFromFile("Stardew_Valley.ttf");
 
@@ -70,7 +70,7 @@ void Game::setText(int willy, int pos, string nameWilly)
     {
         cout << "erreur de police!";
     }
-    _name.setFillColor(sf::Color::Black);
+    _name.setFillColor(sf::Color(165, 42, 42));
 
 
     _name.setFont(_textFont);
@@ -362,25 +362,20 @@ void Game::startMenu()
 
                     texturemenu.loadFromFile("menuBG.jpg");
                     menu.setTexture(&texturemenu);
+                    menu.setScale(4.45, 4.45);
+                    
                     _window.clear();
                     _window.draw(menu);
-                    _window.display();
 
 
                     setText(moneyWilly,300, "Willy");
                     _window.draw(_name);
-                    setText(moneyPrettyWilly,350, "Pretty Willy");
+                    setText(moneyPrettyWilly,400, "Pretty Willy");
                     _window.draw(_name);
-                    setText(moneyEmoWilly,400, "Emo Willy");
+                    setText(moneyEmoWilly,500, "Emo Willy");
                     _window.draw(_name);
                     _window.display();
-
-
-                    /*std::cout << "Statistics" << std::endl << std::endl;
-                    std::cout << "Willy has " << moneyWilly << "g" << std::endl;
-                    std::cout << "Pretty Willy has " << moneyPrettyWilly << "g" << std::endl;
-                    std::cout << "Emo Willy has " << moneyEmoWilly << "g" << std::endl;*/
-                    break;
+                    
 
                     while (true)
                     {

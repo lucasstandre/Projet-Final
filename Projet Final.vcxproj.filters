@@ -100,7 +100,7 @@
     <Image Include="Prettywillymenu.jpg">
       <Filter>Fichiers de ressources</Filter>
     </Image>
-    <Image Include="..\lucasstandre\Projet-Final\menuBG.jpeg">
+    <Image Include="menuBG.jpg">
       <Filter>Fichiers sources</Filter>
     </Image>
   </ItemGroup>
