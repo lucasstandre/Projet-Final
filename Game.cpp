@@ -341,8 +341,9 @@ void Game::startMenu()
                     break;
 
                 case Keyboard::Num2:
-                    texturemenu.loadFromFile("controls_menu.jpg");
+                    texturemenu.loadFromFile("controlsFinal.jpg");
                     menu.setTexture(&texturemenu);
+                    menu.setScale(4.45, 4.45);
                     _window.clear();
                     _window.draw(menu);
                     _window.display();
