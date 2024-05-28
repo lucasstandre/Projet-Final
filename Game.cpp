@@ -132,6 +132,7 @@ void Game::startMenu()
     if (saveFile.is_open()) {
         saveFile >> moneyWilly;
         saveFile.close();
+
     }
 
     saveFile.open("PrettyWillySave.txt", ios::in);
@@ -215,7 +216,8 @@ void Game::startMenu()
                                             {
                                                 switch (event.key.code)
                                                 {
-                                                case Keyboard::Num1: 
+                                                case Keyboard::Num1:
+                                                    _player.setMoney(moneyWilly);
                                                     Play();
                                                     break;
                                                 case Keyboard::Num2:
@@ -266,6 +268,8 @@ void Game::startMenu()
                                                 {
                                                 case Keyboard::Num1:
                                                     _player.setCharacter("prettywilly");
+                                                    _player.setMoney(moneyPrettyWilly);
+
                                                     Play();
                                                     break;
                                                 case Keyboard::Num2:
@@ -309,6 +313,8 @@ void Game::startMenu()
                                                 {
                                                 case Keyboard::Num1:
                                                     _player.setCharacter("emowilly");
+                                                    _player.setMoney(moneyEmoWilly);
+
                                                     Play();
                                                     
                                                     break;
@@ -551,7 +557,7 @@ void Game::Play()
         _window.draw(_player.showMoney());
 
 
-
+        
         if (_isMiniGameWon != false) {
 
             _compteurBoucle++;
@@ -563,7 +569,7 @@ void Game::Play()
             if (_compteurBoucle == 75) {
                 _isMiniGameWon = false;  // Reset the mini-game status
                 _compteurBoucle = 0;
-                _player.setMoney(_earnedFish.getGoldValue());
+                _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
                 _player.setLvl(_earnedFish.getExpReceived());
             }
 
