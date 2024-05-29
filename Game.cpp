@@ -88,7 +88,7 @@ void Game::save(string characterSaveFile, int moneyPC)
         exit(1);
     }
 
-    monFlux >> moneyPC;
+    monFlux << moneyPC;
     monFlux.close();
 
 }
