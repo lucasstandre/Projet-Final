@@ -3,6 +3,11 @@
 using namespace std;
 using namespace sf;
 
+MiniGame::MiniGame()
+{
+
+}
+
 void MiniGame::setPlayerBar(double playerLevel)
 {
 	assert(playerLevel >= 0);
@@ -74,7 +79,7 @@ void MiniGame::initialiseColor()
 
 bool MiniGame::waitingTime()
 {
-	srand(time(0));
+	
 
 	int loopToDo = rand() % 500 + 50;
 
@@ -90,6 +95,7 @@ bool MiniGame::waitingTime()
 
 bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow& window, Terain& terrain, PC player, ShopKeeper shopKeeper)
 {
+	srand(time(0));
 
 	setPlayerBar(playerLevel);
 
@@ -242,7 +248,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 int MiniGame::loot(int odds)
 {
-	srand(time(0));
+	
 	int dropRate = rand() % odds;
 
 	if (dropRate == odds)

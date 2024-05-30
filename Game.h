@@ -24,6 +24,8 @@ private:
     bool _isMiniGameWon = false;
     bool _canPlay = false;
     bool _spacePressed = false;
+    bool _playable = false;
+    bool _ifLost = false;
     Terain _terrain;
     PC _player;
     ShopKeeper _pierre;
@@ -37,6 +39,14 @@ private:
     int _compteurBoucle = 0;
     sf::RenderWindow _window;
     sf::Music _backgroundMusic;
+    sf::RectangleShape _exclamationPoint;
+    sf::Texture _exclamationPointTexture;
+    sf::RectangleShape _loseScreen;
+    sf::Texture _loseScreenTexture;
+    sf::SoundBuffer _bufferExclamationPoint;
+    sf::Sound _soundExclamationPoint;
+    sf::SoundBuffer _bufferLost;
+    sf::Sound _soundLost;
     sf::Font _textFont;
     sf::Text _name;
     
@@ -48,6 +58,8 @@ public:
     void initializeAllFish();
     void initializeBgMusic();
     void initializeWindow();
+    void initializeExclamationPoint();
+    void initializeLoseScreen();
     void initializeAll();
     void Play();
     void start();

@@ -58,6 +58,44 @@ void Game::initializeWindow()
     _window.setFramerateLimit(60);
 }
 
+void Game::initializeExclamationPoint()
+{
+    _exclamationPointTexture.loadFromFile("!_brun.png");
+
+    if (!_exclamationPointTexture.loadFromFile("!_brun.png"))
+        cout << "point exclamation non chargé..";
+
+    _exclamationPoint.setTexture(&_exclamationPointTexture);
+    _exclamationPoint.setSize(sf::Vector2f(712, 712));
+
+    _bufferExclamationPoint.loadFromFile("miniGame.ogg");
+
+    if (!_bufferExclamationPoint.loadFromFile("miniGame.ogg"))
+        cout << "point exclamation non chargé..";
+
+    _soundExclamationPoint.setBuffer(_bufferExclamationPoint);
+}
+
+void Game::initializeLoseScreen()
+{
+    _loseScreenTexture.loadFromFile("LOST.JPG");
+
+    if (_loseScreenTexture.loadFromFile("LOST.JPG"))
+     cout << "erreur de texture dans le losing screen..";
+
+    _loseScreen.setSize(sf::Vector2f(459, 277));
+    _loseScreen.setTexture(&_loseScreenTexture);
+    _loseScreen.setPosition(sf::Vector2f(500, 250));
+
+    _bufferLost.loadFromFile("LOST.ogg");
+
+    if (!_bufferLost.loadFromFile("LOST.ogg"))
+        cout << "LOST non chargé..";
+
+    _soundLost.setBuffer(_bufferLost);
+
+}
+
 void Game::setText(int willy, int pos, string nameWilly)
 {
     string text = nameWilly+" has " + to_string(willy) + "g";
@@ -98,6 +136,8 @@ void Game::initializeAll()
     initializeAllFish();
     initializeBgMusic();
     initializeWindow();
+    initializeExclamationPoint();
+    initializeLoseScreen();
 }
 
 
@@ -437,6 +477,7 @@ void Game::startMenu()
 
 void Game::Play()
 {
+
     while (_window.isOpen()) {
         Event event;
 
@@ -458,23 +499,23 @@ void Game::Play()
                         break;
                     case Keyboard::Up:
                         _player.moveUp();
-                        _spacePressed = false; //test
+                        _spacePressed = false; 
                         break;
                     case Keyboard::Down:
                         _player.moveDown();
-                        _spacePressed = false; //test
+                        _spacePressed = false; 
                         break;
                     case Keyboard::Left:
                         _player.moveLeft();
-                        _spacePressed = false; //test
+                        _spacePressed = false; 
                         break;
                     case Keyboard::Right:
                         _player.moveRight();
-                        _spacePressed = false; //test
+                        _spacePressed = false; 
                         break;
                     case Keyboard::P:
                         _player.animation();
-                        _spacePressed = false; //test
+                        _spacePressed = false; 
                         break;
                     case Keyboard::S:
                         save("willySave.txt", _player.getMoney());
@@ -486,7 +527,6 @@ void Game::Play()
                             _player.space();
                         }
 
-                        //code pour que l'encule se batard de willy arrete de pecher
                         break;
                     case Keyboard::C:
                         if (_player.getPositionY() >= 405 && _player.getPositionX() < 985 && _player.getPositionX() > 885)
@@ -496,17 +536,18 @@ void Game::Play()
                             _window.draw(_pierre.interact());
                             _window.display();
                         }
-                        //code pour que l'encule se batard de willy arrete de pecher
+
                         break;
                     }
                 }
             }
         }
-        if (_spacePressed == true)
+        if (_spacePressed == true) {
             _canPlay = _miniGame.waitingTime();
+        }
 
 
-        if (_canPlay == true) {   //si on a le temps on ajouter un "!" comme dans le vrai jeu       
+        if (_playable == true) {          
 
             _isMiniGameWon = _miniGame.play(_player.getLvl(), _player.getPositionX(), _player.getPositionY(), _window, _terrain, _player, _pierre);
 
@@ -514,7 +555,7 @@ void Game::Play()
 
                 _spacePressed = false; //remet a defaut
 
-                _canPlay = false;
+                _playable = false;
 
                 _lootDrop = _miniGame.loot(1000);
 
@@ -526,7 +567,7 @@ void Game::Play()
 
                     _earnedFish.setFishTexture(_allEliteFish.returnFish(_lootDrop).getFishTexture());
                 }
-                else if (_lootDrop >= 800) { // si on loot rare
+                else if (_lootDrop >= 501) { // si on loot rare
 
                     _lootDrop = _miniGame.loot(4);
 
@@ -546,7 +587,7 @@ void Game::Play()
                 }
             }
             else {
-
+                _ifLost = true;
             }
         }
         _window.clear();
@@ -557,19 +598,68 @@ void Game::Play()
         _window.draw(_terrain.ShowG());
         _window.draw(_player.showMoney());
 
+        if (_canPlay != false) {
 
-        
-        if (_isMiniGameWon != false) {
+            _spacePressed = false;
+            _compteurBoucle++;
+
+            if (_compteurBoucle == 1)
+                _soundExclamationPoint.play();
+            
+
+            if (_compteurBoucle > 10) {
+                _exclamationPoint.setPosition(_player.getPositionX() - 275, _player.getPositionY() - 250);
+                _window.draw(_exclamationPoint);
+            }
+
+
+            if (_compteurBoucle == 50) {
+                _compteurBoucle = 0;
+                _playable = true;
+                _canPlay = false;
+                _spacePressed = true;
+            }
+        }
+        if (_ifLost == true) {
 
             _compteurBoucle++;
+            _playable = false;
+            _spacePressed = false;
+  
+
+            if (_compteurBoucle == 1) {
+                _soundLost.play();
+            }
+
+            _window.draw(_loseScreen);
+
+            if (_compteurBoucle == 130) {
+
+                _ifLost = false;
+                _compteurBoucle = 0;
+                _spacePressed = true;
+           
+
+
+            }
+        }
+        if (_isMiniGameWon == true) {
+
+            _compteurBoucle++;
+            _spacePressed = false;
+      
 
             _window.draw(_earnedFish.displayWindow());
             _window.draw(_earnedFish.displayFish());
             _window.draw(_earnedFish.displayTextFish());
 
-            if (_compteurBoucle == 75) {
-                _isMiniGameWon = false;  // Reset the mini-game status
+
+            if (_compteurBoucle == 130) {
+
+                _isMiniGameWon = false; 
+                _spacePressed = true;
                 _compteurBoucle = 0;
+
                 _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
                 _player.setLvl(_earnedFish.getExpReceived());
             }

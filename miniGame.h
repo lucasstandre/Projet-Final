@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <cstdlib>
 #include <cassert>
 #include"Terain.h"
 #include"PC.h"
@@ -33,6 +34,7 @@ private:
 	sf::Texture _fishTexture;
 
 public:
+	MiniGame();
 	void setPlayerBar(double playerLevel); //set la barre du joueur en fonction de son lvl
 	void initatialiseShapes(); //setsize et settexture de tout les rectangle
 	void initialisePosition(int playerPosX, int playerposY); //set la position en fonction du joueur
