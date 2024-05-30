@@ -7,32 +7,37 @@ ShopKeeper::ShopKeeper()
 {
 	setCharacter("pierre");
 	_character.setPosition(925, 345);
+    if (!_font.loadFromFile("Stardew_Valley.ttf")) {
+        std::cout << "Error loading font" << std::endl;
+    }
+    _text.setFont(_font);
+    _text.setCharacterSize(40);
+    _text.setFillColor(sf::Color::White);
+    _text.setPosition(220, 390);
+
+    if (!_shopTexture.loadFromFile("talkingPierre.png")) {
+        std::cout << "Error loading texture pierre shop" << std::endl;
+    }
+    _shopSprite.setTexture(_shopTexture);
+    _shopSprite.setPosition(200, 350);
 }
 
-sf::RectangleShape ShopKeeper::shop()
+void ShopKeeper::setShop()
 {
+	_text.setString("\nAppuyer sur 1 pour acheter une ps5 a 500g \nAppuyer sur 2 pour quitter");
 
-		_shopTexture.loadFromFile("DisplayFish.png");
-		if (_shopTexture.loadFromFile("DisplayFish.png"))
-		{
-			std::cout << "Error loading texture" << std::endl;
-
-		}
-		_shop.setTexture(&_shopTexture);
-		_shop.setSize(sf::Vector2f(350, 200));
-		_shop.setPosition(500, 300);
-		_shop.setFillColor(sf::Color::White);
-		_shop.setOutlineThickness(5);
-		_shop.setOutlineColor(sf::Color::Black);
-		return _shop;
-	
 }
-
-sf::Text ShopKeeper::interact()
-{
-	_text.setString("Bienvenu ! Vous pouvez maitenant acheter une ps5 pour seulement 500$!");
-	_text.setCharacterSize(24);
-	_text.setFillColor(sf::Color::Black);
-	_text.setPosition(500, 300);
+void ShopKeeper::setText(const std::string& text) {
+	_text.setString(text);
+}
+sf::Text& ShopKeeper::getText() {
 	return _text;
+}
+sf::Sprite& ShopKeeper::getShop() {
+	return _shopSprite;
+}
+void ShopKeeper::drawShop(sf::RenderWindow& window) {
+  
+    window.draw(_shopSprite);
+    window.draw(_text);
 }

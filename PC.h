@@ -10,7 +10,7 @@
 class PC : public Character
 {
 protected:
-
+	int _PS5;
 	int _money;
 	double _Lvl = 0;
 	sf::Text _text;
@@ -23,9 +23,11 @@ protected:
 
 	int getMoney() const;
 	int getLvl() const;
+	int getPS5() const;
 
 	void setMoney(int money);
 	void setLvl(bool lvl);
+	void setPS5(int PS5);
 
 	void moveUp();
 	void moveDown();
@@ -34,6 +36,7 @@ protected:
 	void animation();
 	void space();
 	sf::Text &showMoney();
+	void buyPS5();
 
 
 

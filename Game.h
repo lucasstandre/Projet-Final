@@ -62,6 +62,7 @@ public:
     void initializeLoseScreen();
     void initializeAll();
     void Play();
+    void handleShopInteraction();
     void start();
     void save(std::string characterSaveFile, int moneyPC);
     void startMenu();

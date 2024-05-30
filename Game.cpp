@@ -484,187 +484,237 @@ void Game::Play()
 
         while (_window.pollEvent(event)) {
 
-           
+
             _window.clear();
 
             if (event.type == Event::Closed) {
                 _window.close();
             }
             else if (event.type == Event::KeyPressed) {
-                {
-                    switch (event.key.code)
-                    {
-                    case Keyboard::Escape:
-                        _window.close();
-                        break;
-                    case Keyboard::Up:
-                        _player.moveUp();
-                        _spacePressed = false; 
-                        break;
-                    case Keyboard::Down:
-                        _player.moveDown();
-                        _spacePressed = false; 
-                        break;
-                    case Keyboard::Left:
-                        _player.moveLeft();
-                        _spacePressed = false; 
-                        break;
-                    case Keyboard::Right:
-                        _player.moveRight();
-                        _spacePressed = false; 
-                        break;
-                    case Keyboard::P:
-                        _player.animation();
-                        _spacePressed = false; 
-                        break;
-                    case Keyboard::S:
-                        save("willySave.txt", _player.getMoney());
-                        break;
-                    case Keyboard::Space:
-                        if (_player.getPositionY() >= 465)
-                        {
-                            _spacePressed = true;
-                            _player.space();
-                        }
+                switch (event.key.code) {
+                case Keyboard::Escape:
+                    _window.close();
+                    break;
+                case Keyboard::Up:
+                    _player.moveUp();
+                    _spacePressed = false;
+                    break;
+                case Keyboard::Down:
+                    _player.moveDown();
+                    _spacePressed = false;
+                    break;
+                case Keyboard::Left:
+                    _player.moveLeft();
+                    _spacePressed = false;
+                    break;
+                case Keyboard::Right:
+                    _player.moveRight();
+                    _spacePressed = false;
+                    break;
+                case Keyboard::P:
+                    _player.animation();
+                    _spacePressed = false;
+                    break;
+                case Keyboard::S:
+                    save("willySave.txt", _player.getMoney());
+                    break;
+                case Keyboard::Space:
+                    if (_player.getPositionY() >= 465) {
+                        _spacePressed = true;
+                        _player.space();
+                    }
+                    break;
+                case Keyboard::C:
+                    if (_player.getPositionX() < 985 && _player.getPositionX() > 885) {
+                        handleShopInteraction();
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
 
-                        break;
-                    case Keyboard::C:
-                        if (_player.getPositionY() >= 405 && _player.getPositionX() < 985 && _player.getPositionX() > 885)
-                        {
-                            _window.clear();
-                            _window.draw(_pierre.shop());
-                            _window.draw(_pierre.interact());
-                            _window.display();
-                        }
+        // Update and render game state
+        if (_spacePressed) {
+            if (_spacePressed == true)
+                _canPlay = _miniGame.waitingTime();
+        }
 
-                        break;
+            if (_playable == true) {
+
+                _isMiniGameWon = _miniGame.play(_player.getLvl(), _player.getPositionX(), _player.getPositionY(), _window, _terrain, _player, _pierre);
+
+                if (_isMiniGameWon == true) {
+
+                    _spacePressed = false; //remet a defaut
+
+                    _playable = false;
+
+                    _lootDrop = _miniGame.loot(1000);
+
+                    if (_lootDrop >= 900) { // si on loot elite
+
+                        _lootDrop = _miniGame.loot(2);
+
+                        _earnedFish = _allEliteFish.returnFish(_lootDrop);
+
+                        _earnedFish.setFishTexture(_allEliteFish.returnFish(_lootDrop).getFishTexture());
+                    }
+                    else if (_lootDrop >= 501) { // si on loot rare
+
+                        _lootDrop = _miniGame.loot(4);
+
+                        _earnedFish = _allRareFish.returnFish(_lootDrop);
+
+                        _earnedFish.setFishTexture(_allRareFish.returnFish(_lootDrop).getFishTexture());
+
+                    }
+                    else if (_lootDrop <= 500) { // si on loot common
+
+                        _lootDrop = _miniGame.loot(7);
+
+                        _earnedFish = _allCommonFish.returnFish(_lootDrop);
+
+                        _earnedFish.setFishTexture(_allCommonFish.returnFish(_lootDrop).getFishTexture());
+
                     }
                 }
+                else {
+                    _ifLost = true;
+                }
             }
-        }
-        if (_spacePressed == true) {
-            _canPlay = _miniGame.waitingTime();
-        }
+            _window.clear();
+
+            _window.draw(_terrain.ShowTerain());
+            _window.draw(_pierre.ShowCharacter());
+            _window.draw(_player.ShowCharacter());
+            _window.draw(_terrain.ShowG());
+            _window.draw(_player.showMoney());
+
+            if (_canPlay != false) {
+
+                _spacePressed = false;
+                _compteurBoucle++;
+
+                if (_compteurBoucle == 1)
+                    _soundExclamationPoint.play();
 
 
-        if (_playable == true) {          
+                if (_compteurBoucle > 10) {
+                    _exclamationPoint.setPosition(_player.getPositionX() - 275, _player.getPositionY() - 250);
+                    _window.draw(_exclamationPoint);
+                }
 
-            _isMiniGameWon = _miniGame.play(_player.getLvl(), _player.getPositionX(), _player.getPositionY(), _window, _terrain, _player, _pierre);
 
+                if (_compteurBoucle == 50) {
+                    _compteurBoucle = 0;
+                    _playable = true;
+                    _canPlay = false;
+                    _spacePressed = true;
+                }
+            }
+            if (_ifLost == true) {
+
+                _compteurBoucle++;
+                _playable = false;
+                _spacePressed = false;
+
+
+                if (_compteurBoucle == 1) {
+                    _soundLost.play();
+                }
+
+                _window.draw(_loseScreen);
+
+                if (_compteurBoucle == 130) {
+
+                    _ifLost = false;
+                    _compteurBoucle = 0;
+                    _spacePressed = true;
+
+
+
+                }
+            }
             if (_isMiniGameWon == true) {
 
-                _spacePressed = false; //remet a defaut
+                _spacePressed = false;
 
-                _playable = false;
 
-                _lootDrop = _miniGame.loot(1000);
 
-                if (_lootDrop >= 900) { // si on loot elite
+                _window.draw(_earnedFish.displayWindow());
+                _window.draw(_earnedFish.displayFish());
+                _window.draw(_earnedFish.displayTextFish());
 
-                    _lootDrop = _miniGame.loot(2);
 
-                    _earnedFish = _allEliteFish.returnFish(_lootDrop);
+                if (_compteurBoucle == 130) {
 
-                    _earnedFish.setFishTexture(_allEliteFish.returnFish(_lootDrop).getFishTexture());
-                }
-                else if (_lootDrop >= 501) { // si on loot rare
+                    _isMiniGameWon = false;
+                    _spacePressed = true;
+                    _compteurBoucle = 0;
 
-                    _lootDrop = _miniGame.loot(4);
-
-                    _earnedFish = _allRareFish.returnFish(_lootDrop);
-
-                    _earnedFish.setFishTexture(_allRareFish.returnFish(_lootDrop).getFishTexture());
-
-                }
-                else if (_lootDrop <= 500) { // si on loot common
-
-                    _lootDrop = _miniGame.loot(7);
-
-                   _earnedFish = _allCommonFish.returnFish(_lootDrop);
-
-                    _earnedFish.setFishTexture(_allCommonFish.returnFish(_lootDrop).getFishTexture());
-
+                    _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
+                    _player.setLvl(_earnedFish.getExpReceived());
                 }
             }
-            else {
-                _ifLost = true;
-            }
-        }
+        _window.display();
+
+    }
+}
+void Game::handleShopInteraction() {
+    bool interacting = true;
+    //_pierre.setShop();
+    _pierre.setText("Tu as " + std::to_string(_player.getPS5()) + " PS5\nAppuyer sur 1 pour acheter une ps5 a 500g \nAppuyer sur 2 pour quitter");
+
+    while (interacting) {
         _window.clear();
-
         _window.draw(_terrain.ShowTerain());
         _window.draw(_pierre.ShowCharacter());
         _window.draw(_player.ShowCharacter());
         _window.draw(_terrain.ShowG());
         _window.draw(_player.showMoney());
-
-        if (_canPlay != false) {
-
-            _spacePressed = false;
-            _compteurBoucle++;
-
-            if (_compteurBoucle == 1)
-                _soundExclamationPoint.play();
-            
-
-            if (_compteurBoucle > 10) {
-                _exclamationPoint.setPosition(_player.getPositionX() - 275, _player.getPositionY() - 250);
-                _window.draw(_exclamationPoint);
-            }
-
-
-            if (_compteurBoucle == 50) {
-                _compteurBoucle = 0;
-                _playable = true;
-                _canPlay = false;
-                _spacePressed = true;
-            }
-        }
-        if (_ifLost == true) {
-
-            _compteurBoucle++;
-            _playable = false;
-            _spacePressed = false;
-  
-
-            if (_compteurBoucle == 1) {
-                _soundLost.play();
-            }
-
-            _window.draw(_loseScreen);
-
-            if (_compteurBoucle == 130) {
-
-                _ifLost = false;
-                _compteurBoucle = 0;
-                _spacePressed = true;
-           
-
-
-            }
-        }
-        if (_isMiniGameWon == true) {
-
-            _compteurBoucle++;
-            _spacePressed = false;
-      
-
-            _window.draw(_earnedFish.displayWindow());
-            _window.draw(_earnedFish.displayFish());
-            _window.draw(_earnedFish.displayTextFish());
-
-
-            if (_compteurBoucle == 130) {
-
-                _isMiniGameWon = false; 
-                _spacePressed = true;
-                _compteurBoucle = 0;
-
-                _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
-                _player.setLvl(_earnedFish.getExpReceived());
-            }
-
-        }
+        _pierre.drawShop(_window);
         _window.display();
-    }
+
+        Event event;
+        while (_window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                _window.close();
+                return;
+            }
+            if (event.type == sf::Event::KeyPressed) {
+                switch (event.key.code) {
+                case sf::Keyboard::Num1:
+                    if (_player.getMoney() >= 500) {
+                        _player.buyPS5();
+                        _pierre.setText("Tu a acheter une PS5 !!!!");
+                    }
+                    else {
+                        _pierre.setText("Tu na pas asser dargent pour une ps5");
+                    }
+                    break;
+                case sf::Keyboard::Num2:
+                    _pierre.setText("A plus!");
+                    interacting = false;
+                    break;
+                default:
+                    break;
+                }
+
+                // Redraw the shop interaction with updated text
+                _window.clear();
+                _window.draw(_terrain.ShowTerain());
+                _window.draw(_pierre.ShowCharacter());
+                _window.draw(_player.ShowCharacter());
+                _window.draw(_terrain.ShowG());
+                _window.draw(_player.showMoney());
+                _pierre.drawShop(_window);
+                _window.display();
+            }
+        }
+    }   
+    sf::Clock clock;
+while (clock.getElapsedTime().asSeconds() < 2) {
+}
 }

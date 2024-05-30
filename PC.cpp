@@ -36,6 +36,11 @@ int PC::getLvl() const
 	return _Lvl;
 }
 
+int PC::getPS5() const
+{
+	return _PS5;
+}
+
 void PC::setMoney(int money)
 {
 	_money =+ money;
@@ -44,6 +49,11 @@ void PC::setMoney(int money)
 void PC::setLvl(bool lvl)
 {
 		_Lvl =+ lvl;
+}
+
+void PC::setPS5(int PS5)
+{
+	_PS5 =+ PS5;
 }
 
 void PC::moveUp()
@@ -147,6 +157,15 @@ sf::Text &PC::showMoney()
 	_text.setFillColor(sf::Color(165,42,42));
 	_text.setPosition(1405,2 );
 	return _text;
+
+}
+
+void PC::buyPS5()
+{
+
+	
+		_money -= 500;
+		_PS5 += 1;
 
 }
 
