@@ -155,7 +155,7 @@
     <ClInclude Include="miniGame.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="ShopKeeper.h" />
-    <ClInclude Include="Terain.h" />
+    <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C.Salmon.png" />

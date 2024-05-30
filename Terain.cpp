@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Terain.h"
+#include "Terrain.h"
 
 
-Terain::Terain()
+Terrain::Terrain()
 {
     _background.setSize(sf::Vector2f(1489, 823)); // Taille du personnage
 
@@ -29,20 +29,20 @@ Terain::Terain()
     //    _background.setTexture(&texture);
 }
 
-Terain::~Terain()
+Terrain::~Terrain()
 {
 
 
 }
 
-sf::RectangleShape& Terain::ShowTerain()
+sf::RectangleShape& Terrain::ShowTerrain()
 {
 
     return _background;
 
 }
 
-sf::RectangleShape& Terain::ShowG()
+sf::RectangleShape& Terrain::ShowG()
 {
     _G.setSize(sf::Vector2f(189, 29));
     _G.setPosition(1300, 3);

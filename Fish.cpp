@@ -40,7 +40,7 @@ void Fish::setFishTexture(std::string nameFile)
 
 	if (!_fishTexture.loadFromFile(nameFile))
 	{
-		cout << "erreur dans la texture du poisson!";
+		cout << "erreur dans la texture du poisson!" << nameFile;
 	}
 	_fish.setTexture(&_fishTexture);
 

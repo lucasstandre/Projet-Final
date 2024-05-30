@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 
-class Terain 
+class Terrain 
 {
 protected:
 	sf::RectangleShape _background;
@@ -12,9 +12,9 @@ protected:
 	sf::RectangleShape _G;
 
 	public:
-	Terain();
-	~Terain();
-	sf::RectangleShape& ShowTerain();
+	Terrain();
+	~Terrain();
+	sf::RectangleShape& ShowTerrain();
 	sf::RectangleShape& ShowG();
 };
 

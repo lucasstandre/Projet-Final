@@ -15,13 +15,13 @@ void EliteFish::initialise()
 	_eliteFish[0].setFishTexture("E.Blue_chicken.png");
 	_eliteFish[0].setName("a blue chicken, HUUUUH !?!");
 	_eliteFish[0].setExpReceived(0.50);
-	_eliteFish[0].setGoldValue(100);
+	_eliteFish[0].setGoldValue(200);
 
 	//poisson 2
 	_eliteFish[1].setFishTexture("E.Ms._Angler.png");
 	_eliteFish[1].setName("Ms Angler.. hmmm big lips... big... lips...");
-	_eliteFish[0].setExpReceived(0.50);
-	_eliteFish[0].setGoldValue(100);
+	_eliteFish[1].setExpReceived(0.50);
+	_eliteFish[1].setGoldValue(200);
 
 	_name.setFont(_textFont);	
 }

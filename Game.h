@@ -6,7 +6,7 @@
 #include <chrono>
 #include <fstream>
 #include <thread>
-#include "Terain.h"
+#include "Terrain.h"
 #include "Character.h"
 #include "PC.h"
 #include "ShopKeeper.h"
@@ -26,7 +26,8 @@ private:
     bool _spacePressed = false;
     bool _playable = false;
     bool _ifLost = false;
-    Terain _terrain;
+    std::string _nameSave;
+    Terrain _terrain;
     PC _player;
     ShopKeeper _pierre;
     MiniGame _miniGame;

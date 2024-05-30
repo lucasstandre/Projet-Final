@@ -80,7 +80,7 @@ void Game::initializeLoseScreen()
 {
     _loseScreenTexture.loadFromFile("LOST.JPG");
 
-    if (_loseScreenTexture.loadFromFile("LOST.JPG"))
+    if (!_loseScreenTexture.loadFromFile("LOST.JPG"))
      cout << "erreur de texture dans le losing screen..";
 
     _loseScreen.setSize(sf::Vector2f(459, 277));
@@ -119,7 +119,7 @@ void Game::setText(int willy, int pos, string nameWilly)
 void Game::save(string characterSaveFile, int moneyPC)
 {
     fstream monFlux;
-    monFlux.open(characterSaveFile);
+    monFlux.open(characterSaveFile+"Save.txt");
 
     if (!monFlux.is_open())
     {
@@ -250,6 +250,7 @@ void Game::startMenu()
                                             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                                             {
                                                 startMenu();
+
                                             }
 
                                             if (event.type == sf::Event::KeyPressed)
@@ -258,12 +259,13 @@ void Game::startMenu()
                                                 {
                                                 case Keyboard::Num1:
                                                     _player.setMoney(moneyWilly);
+                                                    _nameSave = "Willy";
                                                     Play();
                                                     break;
                                                 case Keyboard::Num2:
                                                     moneyWilly = 0; // reset Willy's money
                                                     Willy.setMoney(0); // reset Willy's money
-
+                                                    _nameSave = "Willy";
                                                     Play();
                                                     break;
                                                 case Keyboard::Escape:
@@ -309,13 +311,14 @@ void Game::startMenu()
                                                 case Keyboard::Num1:
                                                     _player.setCharacter("prettywilly");
                                                     _player.setMoney(moneyPrettyWilly);
-
+                                                    _nameSave = "PrettyWilly";
                                                     Play();
                                                     break;
                                                 case Keyboard::Num2:
                                                     moneyPrettyWilly = 0; // reset Pretty Willy's money
                                                     prettyWilly.setMoney(0); // reset Pretty Willy's money
                                                     _player.setCharacter("prettywilly");
+                                                    _nameSave = "PrettyWilly";
                                                     Play();
                                                     break;
                                                 default:
@@ -354,7 +357,7 @@ void Game::startMenu()
                                                 case Keyboard::Num1:
                                                     _player.setCharacter("emowilly");
                                                     _player.setMoney(moneyEmoWilly);
-
+                                                    _nameSave = "EmoWilly";
                                                     Play();
                                                     
                                                     break;
@@ -362,6 +365,7 @@ void Game::startMenu()
                                                     moneyEmoWilly = 0; // reset Emo Willy's money
                                                     emoWilly.setMoney(0); // reset Emo Willy's money
                                                     _player.setCharacter("emowilly");
+                                                    _nameSave = "EmoWilly";
                                                     Play();
                                                     break;
                                                 default:
@@ -516,7 +520,8 @@ void Game::Play()
                     _spacePressed = false;
                     break;
                 case Keyboard::S:
-                    save("willySave.txt", _player.getMoney());
+                    save(_nameSave, _player.getMoney());
+
                     break;
                 case Keyboard::Space:
                     if (_player.getPositionY() >= 465) {
@@ -541,123 +546,124 @@ void Game::Play()
                 _canPlay = _miniGame.waitingTime();
         }
 
-            if (_playable == true) {
+        if (_playable == true) {
 
-                _isMiniGameWon = _miniGame.play(_player.getLvl(), _player.getPositionX(), _player.getPositionY(), _window, _terrain, _player, _pierre);
+            _isMiniGameWon = _miniGame.play(_player.getLvl(), _player.getPositionX(), _player.getPositionY(), _window, _terrain, _player, _pierre);
 
-                if (_isMiniGameWon == true) {
-
-                    _spacePressed = false; //remet a defaut
-
-                    _playable = false;
-
-                    _lootDrop = _miniGame.loot(1000);
-
-                    if (_lootDrop >= 900) { // si on loot elite
-
-                        _lootDrop = _miniGame.loot(2);
-
-                        _earnedFish = _allEliteFish.returnFish(_lootDrop);
-
-                        _earnedFish.setFishTexture(_allEliteFish.returnFish(_lootDrop).getFishTexture());
-                    }
-                    else if (_lootDrop >= 501) { // si on loot rare
-
-                        _lootDrop = _miniGame.loot(4);
-
-                        _earnedFish = _allRareFish.returnFish(_lootDrop);
-
-                        _earnedFish.setFishTexture(_allRareFish.returnFish(_lootDrop).getFishTexture());
-
-                    }
-                    else if (_lootDrop <= 500) { // si on loot common
-
-                        _lootDrop = _miniGame.loot(7);
-
-                        _earnedFish = _allCommonFish.returnFish(_lootDrop);
-
-                        _earnedFish.setFishTexture(_allCommonFish.returnFish(_lootDrop).getFishTexture());
-
-                    }
-                }
-                else {
-                    _ifLost = true;
-                }
-            }
-            _window.clear();
-
-            _window.draw(_terrain.ShowTerain());
-            _window.draw(_pierre.ShowCharacter());
-            _window.draw(_player.ShowCharacter());
-            _window.draw(_terrain.ShowG());
-            _window.draw(_player.showMoney());
-
-            if (_canPlay != false) {
-
-                _spacePressed = false;
-                _compteurBoucle++;
-
-                if (_compteurBoucle == 1)
-                    _soundExclamationPoint.play();
-
-
-                if (_compteurBoucle > 10) {
-                    _exclamationPoint.setPosition(_player.getPositionX() - 275, _player.getPositionY() - 250);
-                    _window.draw(_exclamationPoint);
-                }
-
-
-                if (_compteurBoucle == 50) {
-                    _compteurBoucle = 0;
-                    _playable = true;
-                    _canPlay = false;
-                    _spacePressed = true;
-                }
-            }
-            if (_ifLost == true) {
-
-                _compteurBoucle++;
-                _playable = false;
-                _spacePressed = false;
-
-
-                if (_compteurBoucle == 1) {
-                    _soundLost.play();
-                }
-
-                _window.draw(_loseScreen);
-
-                if (_compteurBoucle == 130) {
-
-                    _ifLost = false;
-                    _compteurBoucle = 0;
-                    _spacePressed = true;
-
-
-
-                }
-            }
             if (_isMiniGameWon == true) {
 
-                _spacePressed = false;
+                _spacePressed = false; //remet a defaut
 
+                _playable = false;
 
+                _lootDrop = _miniGame.loot(1000);
 
-                _window.draw(_earnedFish.displayWindow());
-                _window.draw(_earnedFish.displayFish());
-                _window.draw(_earnedFish.displayTextFish());
+                if (_lootDrop >= 900) { // si on loot elite
 
+                    _lootDrop = _miniGame.loot(2);
 
-                if (_compteurBoucle == 130) {
+                    _earnedFish = _allEliteFish.returnFish(_lootDrop);
 
-                    _isMiniGameWon = false;
-                    _spacePressed = true;
-                    _compteurBoucle = 0;
+                    _earnedFish.setFishTexture(_allEliteFish.returnFish(_lootDrop).getFishTexture());
+                }
+                else if (_lootDrop >= 501) { // si on loot rare
 
-                    _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
-                    _player.setLvl(_earnedFish.getExpReceived());
+                    _lootDrop = _miniGame.loot(4);
+
+                    _earnedFish = _allRareFish.returnFish(_lootDrop);
+
+                    _earnedFish.setFishTexture(_allRareFish.returnFish(_lootDrop).getFishTexture());
+
+                }
+                else if (_lootDrop <= 500) { // si on loot common
+
+                    _lootDrop = _miniGame.loot(7);
+
+                    _earnedFish = _allCommonFish.returnFish(_lootDrop);
+
+                    _earnedFish.setFishTexture(_allCommonFish.returnFish(_lootDrop).getFishTexture());
+
                 }
             }
+            else {
+                _ifLost = true;
+            }
+        }
+        _window.clear();
+
+        _window.draw(_terrain.ShowTerrain());
+        _window.draw(_pierre.ShowCharacter());
+        _window.draw(_player.ShowCharacter());
+        _window.draw(_terrain.ShowG());
+        _window.draw(_player.showMoney());
+
+        if (_canPlay != false) {
+
+            _spacePressed = false;
+            _compteurBoucle++;
+
+            if (_compteurBoucle == 1)
+                _soundExclamationPoint.play();
+
+
+            if (_compteurBoucle > 10) {
+                _exclamationPoint.setPosition(_player.getPositionX() - 275, _player.getPositionY() - 250);
+                _window.draw(_exclamationPoint);
+            }
+
+
+            if (_compteurBoucle == 50) {
+                _compteurBoucle = 0;
+                _playable = true;
+                _canPlay = false;
+                _spacePressed = true;
+            }
+        }
+        if (_ifLost == true) {
+
+            _compteurBoucle++;
+            _playable = false;
+            _spacePressed = false;
+
+
+            if (_compteurBoucle == 1) {
+                _soundLost.play();
+            }
+
+            _window.draw(_loseScreen);
+
+            if (_compteurBoucle == 130) {
+
+                _ifLost = false;
+                _compteurBoucle = 0;
+                _spacePressed = true;
+
+
+
+            }
+        }
+        if (_isMiniGameWon == true) {
+
+            _compteurBoucle++;
+            _spacePressed = false;
+            
+
+
+            _window.draw(_earnedFish.displayWindow());
+            _window.draw(_earnedFish.displayFish());
+            _window.draw(_earnedFish.displayTextFish());
+
+
+            if (_compteurBoucle == 130) {
+
+                _isMiniGameWon = false;
+                _spacePressed = true;
+                _compteurBoucle = 0;
+
+                _player.setMoney(_player.getMoney() + _earnedFish.getGoldValue());
+                _player.setLvl(_earnedFish.getExpReceived());
+            }
+        }
         _window.display();
 
     }
@@ -669,7 +675,7 @@ void Game::handleShopInteraction() {
 
     while (interacting) {
         _window.clear();
-        _window.draw(_terrain.ShowTerain());
+        _window.draw(_terrain.ShowTerrain());
         _window.draw(_pierre.ShowCharacter());
         _window.draw(_player.ShowCharacter());
         _window.draw(_terrain.ShowG());
@@ -704,7 +710,7 @@ void Game::handleShopInteraction() {
 
                 // Redraw the shop interaction with updated text
                 _window.clear();
-                _window.draw(_terrain.ShowTerain());
+                _window.draw(_terrain.ShowTerrain());
                 _window.draw(_pierre.ShowCharacter());
                 _window.draw(_player.ShowCharacter());
                 _window.draw(_terrain.ShowG());

@@ -93,7 +93,7 @@ bool MiniGame::waitingTime()
 	}
 }
 
-bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow& window, Terain& terrain, PC player, ShopKeeper shopKeeper)
+bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindow& window, Terrain& terrain, PC player, ShopKeeper shopKeeper)
 {
 	srand(time(0));
 
@@ -199,7 +199,7 @@ bool MiniGame::play(int playerLevel, int playerPosX, int playerPosY, RenderWindo
 
 		window.clear();
 
-		window.draw(terrain.ShowTerain());
+		window.draw(terrain.ShowTerrain());
 
 		window.draw(shopKeeper.ShowCharacter());
 

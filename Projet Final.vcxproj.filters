@@ -80,7 +80,7 @@
     <ClInclude Include="eliteFish.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Terain.h">
+    <ClInclude Include="Terrain.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">

@@ -4,7 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <cassert>
-#include"Terain.h"
+#include"Terrain.h"
 #include"PC.h"
 #include"ShopKeeper.h"
 #include "SFML/Graphics.hpp"
@@ -40,7 +40,7 @@ public:
 	void initialisePosition(int playerPosX, int playerposY); //set la position en fonction du joueur
 	void initialiseColor(); //set la color
 	bool waitingTime();
-	bool play(int playerLevel, int playerPosX, int playerPosY, sf::RenderWindow &window, Terain &terrain, PC player, ShopKeeper shopKeeper); //bool qui return true si on gagne le mini game et false si on perd
+	bool play(int playerLevel, int playerPosX, int playerPosY, sf::RenderWindow &window, Terrain &terrain, PC player, ShopKeeper shopKeeper); //bool qui return true si on gagne le mini game et false si on perd
 	int loot(int odds);
 
 	~MiniGame();

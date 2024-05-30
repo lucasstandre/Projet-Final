@@ -17,4 +17,5 @@ public:
 	sf::RectangleShape& ShowCharacter();
 	float getPositionX();
 	float getPositionY();
+	sf::Texture& getTexture();
 };

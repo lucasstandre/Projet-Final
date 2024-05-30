@@ -35,6 +35,7 @@ void Character::setCharacter(std::string CharacterPng)
 	_rectSourceSprite = sf::IntRect(0, 0, 15, 32);
 
 	_character.setTextureRect(_rectSourceSprite);
+	
 
 }
 
@@ -46,6 +47,12 @@ float Character::getPositionY()
 {
 	return _character.getPosition().y;
 }
+
+sf::Texture& Character::getTexture()
+{
+	return _characterTexture;
+}
+
 
 
 

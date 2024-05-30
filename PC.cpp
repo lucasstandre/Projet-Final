@@ -118,6 +118,7 @@ void PC::animation()
 	}
 
 	_character.setTextureRect(_rectSourceSprite);
+	_money += 10;
 }
 
 void PC::space()
